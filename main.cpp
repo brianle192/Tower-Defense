@@ -23,27 +23,11 @@ int main(int, char const**)
 
 	// Create the main window
 	sf::RenderWindow window(sf::VideoMode(720, 480), "Fight Hard Yeah! Tower Defense Game");
-	//sf::RenderWindow window(sf::VideoMode(1000, 800), "Fight Hard Yeah! Tower Defense Game");
-	
-	
-	/*
-	// Load a sprite to display
-	sf::Texture texture;
-	if (!texture.loadFromFile("cute_image.jpg")) {
-		return EXIT_FAILURE;
-	}
-	sf::Sprite sprite(texture);
-	*/
-
-
+		
 	//Attempting to put the background Image in
 	sf::RectangleShape background(sf::Vector2f(720.0f, 480.0f));
 	background.setPosition(0.0f, 0.0f);
 
-	//background.setFillColor(sf::Color::Magenta);
-
-	//background.setOrigin(250.0f, 250.0f);
-	//background.setPosition(250.0f, 250.0f);
 	sf::Texture backgroundImage;
 	//backgroundImage.loadFromFile("Woods.png");
 	backgroundImage.loadFromFile("mario.png");
