@@ -18,21 +18,33 @@ void enemy::updateMovement()
 {
 	
 	if (direction == 1) // Up
-	{
-		rect.move(0, -movementSpeed);
+	{  
+		if (faceUp == true)
+		{rect.move(0, -movementSpeed);}
+		faceLeft = true; faceDown = true;  // Add enemy collision with wall
+		faceRight = true; faceUp = true;
 	}
 	else if (direction == 2) // Down
 	{
-		rect.move(0, movementSpeed);
+		if (faceDown == true)
+		{rect.move(0, movementSpeed);}
+		faceLeft = true; faceDown = true;
+		faceRight = true; faceUp = true;
 	}
 	else if (direction == 3) // Left
 	{
-		rect.move(-movementSpeed, 0);
+		if (faceLeft == true)
+		{rect.move(-movementSpeed, 0); }
+		faceLeft = true; faceDown = true;
+		faceRight = true; faceUp = true;
 		
 	}
 	else if (direction == 4) // Right
-	{
-		rect.move(movementSpeed, 0);
+	{   
+		if (faceRight == true)
+		{rect.move(movementSpeed, 0); }
+		faceLeft = true; faceDown = true;
+		faceRight = true; faceUp = true;
 		
 	}
 	else
@@ -50,8 +62,8 @@ void enemy::updateMovement()
 	if (counter >= movementLength)
 		//if (counter >= 40)
 	{
-		direction = generateRandom(20);
-		//direction = generateRandom(10);
+		//direction = generateRandom(20);
+		direction = generateRandom(10);
 		
 		counter = 0;
 	}
