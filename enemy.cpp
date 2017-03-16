@@ -21,7 +21,7 @@ void enemy::updateMovement()
 	{  
 		if (faceUp == true)
 		{rect.move(0, -movementSpeed);}
-		faceLeft = true; faceDown = true;  // Add enemy collision with wall
+		faceLeft = true; faceDown = true;  // Add enemy collision with walls
 		faceRight = true; faceUp = true;
 	}
 	else if (direction == 2) // Down
