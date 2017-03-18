@@ -14,11 +14,14 @@ int exitgame = 0;
 
 int main()
 {
+	sf::Clock clock1; // clock for AI
+	
 	sf::RenderWindow window(sf::VideoMode(720, 480), "Fight Hard Yeah! Tower Defense Game", sf::Style::Close | sf::Style::Resize);
 	Audio audio;
 	Graphic graphics;
 	int flag = 0, counter = 0;
 	int counter2 = 0;
+	int counter3 = 0;
 	
 	//Player character texture, rectangle bound to box
 	sf::Texture playerTexture;
@@ -71,7 +74,7 @@ int main()
 	player.sound.setVolume(100);
 
 	//////////////////////////////////////////////////////////////////////////
-	// Adding enemy texture - need to work more
+	// Adding enemy texture - need to work more for sprite sheet
 	sf::Texture textureEnemy;
 	if (!textureEnemy.loadFromFile("ghost.png")) {
 		return EXIT_FAILURE;
@@ -100,10 +103,9 @@ int main()
 	vector<enemy>::const_iterator iter4;
 	vector<enemy> enemyArray;
 
-	// Enemy Objects - make 5 enemies
-	class enemy enemy1, enemy2, enemy3, enemy4, enemy5;
+	// Enemy Objects - make 2 enemies try
+	class enemy enemy1, enemy2;
 	enemy1.sprite.setTexture(textureEnemy);
-	//enemy1.sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
 	enemy1.rect.setPosition(700, 250); // y: 200 is the border with the wall
 	enemyArray.push_back(enemy1);
 	
@@ -111,19 +113,7 @@ int main()
 	enemy2.rect.setPosition(500, 260);
 	enemyArray.push_back(enemy2);
 
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(600, 240);
-	enemyArray.push_back(enemy3);
-
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(400, 210);
-	enemyArray.push_back(enemy4);
-
-	enemy5.sprite.setTexture(textureEnemy);
-	enemy5.rect.setPosition(300, 280);
-	enemyArray.push_back(enemy5);
-	
-	/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
 
 	while (window.isOpen())
@@ -183,7 +173,7 @@ int main()
 			for (wallit = wallArray.begin(); wallit != wallArray.end(); wallit++)
 			{
 				if (enemyArray[counter].rect.getGlobalBounds().intersects(wallArray[counter2].rect.getGlobalBounds()))
-				{	//Hit wall
+				{	
 					if (enemyArray[counter].direction == 1) //Up
 					{
 						enemyArray[counter].faceUp = false;
@@ -290,19 +280,95 @@ int main()
 		else
 			menuImage.setTexture(&menuTexture);
 
-		////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////	
 
-		// Press T to created more enemies for testing
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			enemy1.rect.setPosition(generateRandom(window.getSize().x), generateRandom(window.getSize().y));
-			enemyArray.push_back(enemy1);
-		}
-
-
-		
+		sf::Time elapsed1 = clock1.getElapsedTime();
 	
+	//////////////////////////////////////////////////////////////////////////////////////////
+		// Enemy Chasing (AI)
+		counter = 0;
+		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
+		{
+			if (enemyArray[counter].chase == true)
+			{
+				if (elapsed1.asSeconds() >= 1)
+					
+				{
+					clock1.restart();
+
+					int tempRand = generateRandom(3);
+		         
+					if (tempRand == 1) // Track Player Position
+					{
+						// Player to Right
+						if ((player.body.getPosition().x < enemyArray[counter].rect.getPosition().x) && (abs(player.body.getPosition().y - enemyArray[counter].rect.getPosition().y) <= 40))
+							{ 
+							enemyArray[counter].direction = 3;
+							}
+						// Player to Left
+						if ((player.body.getPosition().x > enemyArray[counter].rect.getPosition().x) && (abs(player.body.getPosition().y - enemyArray[counter].rect.getPosition().y) <= 40))
+							{
+							enemyArray[counter].direction = 4;
+							}
+						// Player to Top
+						if ((player.body.getPosition().y < enemyArray[counter].rect.getPosition().y) && (abs(player.body.getPosition().x - enemyArray[counter].rect.getPosition().x) <= 40))
+							{ 
+							enemyArray[counter].direction = 1;
+							}
+						// Player to Bottom
+						if ((player.body.getPosition().y > enemyArray[counter].rect.getPosition().y) && (abs(player.body.getPosition().x - enemyArray[counter].rect.getPosition().x) <= 40))
+							{
+							enemyArray[counter].direction = 2;
+							}
+					}
+					else if (tempRand == 2) // Enemy Chases Player
+					{
+						if (player.body.getPosition().y < enemyArray[counter].rect.getPosition().y)
+						{
+							enemyArray[counter].direction = 1;
+						}
+						else if (player.body.getPosition().y > enemyArray[counter].rect.getPosition().y)
+						{
+							enemyArray[counter].direction = 2;
+						}
+						else if (player.body.getPosition().x < enemyArray[counter].rect.getPosition().x)
+						{
+							enemyArray[counter].direction = 3;
+						}
+						else if (player.body.getPosition().x > enemyArray[counter].rect.getPosition().x)
+						{
+							enemyArray[counter].direction = 4;
+						}
+					}
+					else // Enemy Chases Player
+					{
+						if (player.body.getPosition().x < enemyArray[counter].rect.getPosition().x)
+						{
+							enemyArray[counter].direction = 3;
+						}
+						else if (player.body.getPosition().x > enemyArray[counter].rect.getPosition().x)
+						{
+							enemyArray[counter].direction = 4;
+						}
+						else if (player.body.getPosition().y < enemyArray[counter].rect.getPosition().y)
+						{
+							enemyArray[counter].direction = 1;
+						}
+						else if (player.body.getPosition().y > enemyArray[counter].rect.getPosition().y)
+						{
+							enemyArray[counter].direction = 2;
+						}
+					}
+
+				}
+			}
+
+			counter++;
+		}
+	// Chasing boolean 
+         enemyArray[counter2].chase = true;
+		
+		
 	////////////////////////////////////////////////////////////////////////////////////////////		
 		// Draw Enemies
 		counter = 0;
