@@ -27,6 +27,9 @@ public:
 
 	sf::RectangleShape backgroundTree;
 	sf::Texture treeTexture;
+	
+	sf::RectangleShape menuImage;  // added on 03/28
+	sf::Texture menuTexture;
 
 };
 
