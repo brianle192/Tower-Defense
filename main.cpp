@@ -11,6 +11,7 @@
 #include "projectile.h"
 #include "random.h"
 #include "entity.h"
+#include "Resource.h" // add on 03/28
 
 using namespace std;
 int exitgame = 0;
@@ -22,28 +23,47 @@ int main()
 	sf::Clock clock2;
 	sf::Clock clock3;
 	
-	sf::RenderWindow window(sf::VideoMode(720, 480), "Fight Hard Yeah! Tower Defense Game", sf::Style::Close | sf::Style::Resize);
+	sf::RenderWindow window(sf::VideoMode(1024, 576), "Fight Hard Yeah! Tower Defense Game", sf::Style::Close | sf::Style::Resize);
 	Audio audio;
 	Graphic graphics;
 	int flag = 0, counter = 0;
 	int counter2 = 0;
 	int counter3 = 0;
+	int help = 0; // add on 03/28
 	
 	//Player character texture, rectangle bound to box
 	sf::Texture playerTexture;
 	playerTexture.loadFromFile("char_sprite_walk_swords.png");
+
+	//////////////////////////////////////////////////// added on 03/28
+	//Miguel text on screen
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf")) {
+		std::cout << "can't open ttf file" << std::endl;
+	}
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(15);
+	//text.setColor(sf::Color::Red);
+	text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+	text.setString("Level - 1\n");
+
+	sf::Text textHelp;
+	textHelp.setFont(font);
+	textHelp.setCharacterSize(15);
+	textHelp.setString("\n(H) Help?\n");
+	sf::Text textHelp2;
+	textHelp2.setFont(font);
+	textHelp2.setCharacterSize(15);
+	textHelp2.setString("\n(H) Help?\n(F) - Flashlight\n(Space) - Shoot\n(1) - Melee\n(2) - Sword\n(3) - Tower\n");
+	//---------------------------------------------------------------------------------------------------------------
+
 
 	
    ///////////////////////////////////////////////////// Add 3/15
 	// Wall creation
 	vector<Wall>::const_iterator wallit;
 	vector<Wall> wallArray;
-
-	/*class Wall wall1;
-	sf::Texture textureWall;
-	textureWall.loadFromFile("wall.jpg");
-	wall1.rect.setTexture(&textureWall);
-	*/
 
 	class Wall wall1, wall2, wall3;
 	sf::Texture textureWall;
@@ -69,11 +89,38 @@ int main()
 	wallArray.push_back(wall3);
 	//////////////////////////////////////////////////////////////
 
-	Player player(&playerTexture, sf::Vector2u(3, 3), 0.3f, 100.0f);
+	
+	/////////////////////////////////////////////////////////////// added on 03/28
+	
+	vector<Resource>::const_iterator resourceit;
+	vector<Resource> resourceArray;
+	class Resource resource1;
+	sf::Texture textureResource1;
 
+	//Miguel Resource Allocation
+	resource1.resource1 = true;
+	resource1.resource2 = false;
+	resource1.resource3 = false;
+	resource1.rect.setFillColor(sf::Color::Green);
+	resource1.rect.setPosition(300, 350);
+	resourceArray.push_back(resource1);
+	resource1.resource1 = false;
+	resource1.resource2 = true;
+	resource1.resource3 = false;
+	resource1.rect.setFillColor(sf::Color::Blue);
+	resource1.rect.setPosition(400, 250);
+	resourceArray.push_back(resource1);
+	resource1.resource1 = false;
+	resource1.resource2 = false;
+	resource1.resource3 = true;
+	resource1.rect.setFillColor(sf::Color::Red);
+	resource1.rect.setPosition(200, 250);
+	resourceArray.push_back(resource1);
+//////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	//Assigning Player Footstep Sounds
+	Player player(&playerTexture, sf::Vector2u(3, 3), 0.3f, 100.0f);
+        //Assigning Player Footstep Sounds
 	if (!player.soundBuf.loadFromFile("foot.wav"))
 		std::cout << "can't open sound file" << std::endl;
 	player.sound.setBuffer(player.soundBuf);
@@ -155,6 +202,26 @@ int main()
 						exitgame = 0;
 				}
 			}
+//////////////////////////////////////////////////////////////////////////// added on 03/28
+//Grabbing Left Button
+			if (evnt.type == sf::Event::MouseButtonPressed)
+			{
+				if (evnt.key.code == sf::Mouse::Left)
+				{
+					std::cout << "left button clicked" << std::endl;
+					sf::Vector2i position = sf::Mouse::getPosition(window);
+					std::cout << position.x << std::endl;
+					std::cout << position.y << std::endl;
+				}
+			}
+			
+			
+			
+		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::H))  //added 03/28 
+		{
+			help ^= 1;
 		}
 
 
@@ -274,7 +341,15 @@ int main()
 			counter++;
 		}
 
+//////////////////////////////////////////////////////////////added on 03/28
 
+//window.setPosition(sf::Vector2i(50, 50));
+		window.draw(graphics.backgroundTree);
+		player.Draw(window);
+		window.draw(wall1.sprite);
+		window.draw(wall2.sprite);
+		window.draw(wall3.sprite);
+/*
 ///////////////////////////////////////////// Add 3/16
 
 		player.Draw(window);
@@ -292,7 +367,7 @@ int main()
 			window.draw(menuImage);
 		else
 			menuImage.setTexture(&menuTexture);
-
+*/
 	//////////////////////////////////////////////////////////////////////////////////////////	
 
 		sf::Time elapsed1 = clock1.getElapsedTime();
@@ -481,6 +556,31 @@ int main()
 
 			counter++;
 		}
+		
+////////////////////////////////////////////////////////////////// added on 03/28
+//Miguel Draw Resources
+		counter = 0;
+		for (resourceit = resourceArray.begin(); resourceit != resourceArray.end(); resourceit++)
+		{
+			resourceArray[counter].update();
+
+			window.draw(resourceArray[counter].rect);
+			window.draw(resourceArray[counter].sprite);
+			counter++;
+		}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		//---------------------------------------------------------------------------------------------------------------
+
+		//Miguel draw text
+		window.draw(text);
+		help == 0 ? window.draw(textHelp) : window.draw(textHelp2);
+		//---------------------------------------------------------------------------------------------------------------
+
+		//displaying Escape Menu
+		if (exitgame == 1) window.draw(graphics.menuImage);
+		else	graphics.menuImage.setTexture(&graphics.menuTexture);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		
   /////////////////////////////////////////////////////////////////////////////////////////////
 		window.display();
 	}
