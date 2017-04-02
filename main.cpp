@@ -29,9 +29,9 @@ int main()
 	int counter2 = 0;
 	int counter3 = 0;
 
-	//---------------------------------------------------------------------------------------------------------------
-	//Gerardo 
-	//Player character texture, rectangle bound to box
+//---------------------------------------------------------------------------------------------------------------
+//Gerardo 
+//Player character texture, rectangle bound to box
 	sf::Texture playerTexture;
 	playerTexture.loadFromFile("char_sprite_walk3.png");
 
@@ -58,8 +58,8 @@ int main()
 	tower3.setTexture(&towertex3);
 //----------------------------------------------------------------------------
 
-////////////////////////////////////////////////////////////////////////////////// add at report 2
-	//Miguel text on screen
+//----------------------------------------------------------------------------
+//Miguel text on screen
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf")) {
 		std::cout << "can't open ttf file" << std::endl;
@@ -79,12 +79,11 @@ int main()
 	textHelp2.setFont(font);
 	textHelp2.setCharacterSize(15);
 	textHelp2.setString("\n(H) Help?\n(F) - Flashlight\n(Space) - Shoot\n(1) - Melee\n(2) - Sword\n(3) - Tower\n");
-	//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
 
 
-	
-   //////////////////////////////////////////////////////////////////////////////////////////////////////// Add 3/15
-	//Miguel Walls
+//---------------------------------------------------------------------------------------------------------------
+//Miguel Walls
 	vector<Wall>::const_iterator wallit;
 	vector<Wall> wallArray;
 
@@ -103,32 +102,7 @@ int main()
 	wall4.rect.setPosition(560, 240);
 	wall4.rect.setSize(sf::Vector2f(30, 10));
 	wallArray.push_back(wall4);
-/*
-	sf::Texture textureWall;
-	textureWall.loadFromFile("cave_top.png");
-	wall1.rect.setTexture(&textureWall);
-	sf::Texture textureWall2;
-	textureWall2.loadFromFile("cave_bottom_left.png");
-	wall2.rect.setTexture(&textureWall2);
-	sf::Texture textureWall3;
-	textureWall3.loadFromFile("cave_bottom_right.png");
-	wall3.rect.setTexture(&textureWall3);
 
-	wall1.rect.setPosition(0, 0);
-	wall1.rect.setSize(sf::Vector2f(720, 200));
-	wallArray.push_back(wall1);
-
-	wall2.rect.setPosition(0, 330);
-	wall2.rect.setSize(sf::Vector2f(150, 150));
-	wallArray.push_back(wall2);
-
-	wall3.rect.setPosition(150, 430);
-	wall3.rect.setSize(sf::Vector2f(570, 50));
-	wallArray.push_back(wall3);
-*/
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------------------------------------------------------------------------------------
 //Miguel Resources	
 	vector<Resource>::const_iterator resourceit;
@@ -137,28 +111,6 @@ int main()
 	//sf::Texture textureResource1;
 	sf::Texture textureResource1, textureResource2, textureResource3;
 
-
-	//Miguel Resource Allocation
-	/*
-	resource1.resource1 = true;
-	resource1.resource2 = false;
-	resource1.resource3 = false;
-	resource1.rect.setFillColor(sf::Color::Green);
-	resource1.rect.setPosition(300, 350);
-	resourceArray.push_back(resource1);
-	resource1.resource1 = false;
-	resource1.resource2 = true;
-	resource1.resource3 = false;
-	resource1.rect.setFillColor(sf::Color::Blue);
-	resource1.rect.setPosition(400, 250);
-	resourceArray.push_back(resource1);
-	resource1.resource1 = false;
-	resource1.resource2 = false;
-	resource1.resource3 = true;
-	resource1.rect.setFillColor(sf::Color::Red);
-	resource1.rect.setPosition(200, 250);
-	resourceArray.push_back(resource1);
-*/
 	resource1.resource1 = true;
 	resource1.resource2 = false;
 	resource1.resource3 = false;
@@ -194,41 +146,38 @@ int main()
 	resource1.rect.setPosition(200, 400);
 	resourceArray.push_back(resource1);
 	resource1.resource3 = false;
-	//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
 
 	
-	//////////////////////////////////////////////////////////////////////////////////////
-	//Gerardo Player Sprite/Sound
+//Gerardo Player Sprite/Sound
 	Player player(&playerTexture, sf::Vector2u(3, 3), 0.3f, 100.0f);
-	//Assigning Player Footstep Sounds
+//Assigning Player Footstep Sounds
 	if (!player.soundBuf.loadFromFile("foot.wav"))
 		//std::cout << "can't open sound file" << std::endl;
 	player.sound.setBuffer(player.soundBuf);
 	player.sound.setVolume(100);
 
-///////////////////////////////////////////////////////////////////////////////////////
-	
 //---------------------------------------------------------------------------------------------------------------
 //Cuong
-	// Adding enemy texture - need to work more for sprite sheet
+// Adding enemy texture - need to work more for sprite sheet
 	sf::Texture textureEnemy;
 	if (!textureEnemy.loadFromFile("ghost.png")) {
 		return EXIT_FAILURE;
 	}
 	
-	// Adding enemy texture - need to work more for sprite sheet
+// Adding enemy texture type 2 spawning randomly //////////////////// added on 04/01
 	sf::Texture textureEnemy2;
 	if (!textureEnemy2.loadFromFile("monster.png")) {
 		return EXIT_FAILURE;
 	}
 
-	// Enemy Vector Array
+// Enemy Vector Array
 	vector<enemy>::const_iterator iter4;
 	vector<enemy> enemyArray;
-	vector<enemy> enemy1Array;
+	vector<enemy> enemy1Array;   //////////////////////////////added on 04/01
 
-	// Enemy Objects - make 5 enemies
-	class enemy enemy1, enemy2; // enemy3, enemy4, enemy5;
+// Enemy Objects - make 2 type enemies
+	class enemy enemy1, enemy2; 
 
 	enemy1.sprite.setTexture(textureEnemy); // y: 200 is the border with the wall
 	//enemy1.sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
@@ -238,73 +187,19 @@ int main()
 
 	enemy2.sprite.setTexture(textureEnemy2);
 	enemy2.rect.setPosition(500, 260);
-	//enemyArray.push_back(enemy2);
-	enemy1Array.push_back(enemy2); // enemy type 2 spawn randomly
-	/*
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(600, 240);
-	//enemyArray.push_back(enemy3);
-	enemy1Array.push_back(enemy3);
-
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(400, 210);
-	//enemyArray.push_back(enemy4);
-	enemy1Array.push_back(enemy4);
+	enemy1Array.push_back(enemy2); ////////////////////add 04/01 enemy type 2 spawn randomly
 	
-	enemy5.sprite.setTexture(textureEnemy);
-	enemy5.rect.setPosition(300, 280);
-	enemyArray.push_back(enemy5);
+//--------------------------------------------------------------------------------------------------
 
-	enemy1.sprite.setTexture(textureEnemy); // the second  right map
-	enemy1.rect.setPosition(1000, 260);
-	enemyArray.push_back(enemy2);
-
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(1100, 260);
-	enemyArray.push_back(enemy2);
-
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(1200, 240);
-	enemyArray.push_back(enemy3);
-
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(1300, 210);
-	enemyArray.push_back(enemy4);
-
-	enemy5.sprite.setTexture(textureEnemy);
-	enemy5.rect.setPosition(1500, 280);
-	enemyArray.push_back(enemy5);
-
-	enemy2.sprite.setTexture(textureEnemy); // the second left map
-	enemy2.rect.setPosition(-500, 260);
-	enemyArray.push_back(enemy2);
-
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(-599, 260);
-	enemyArray.push_back(enemy2);
-
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(-468, 240);
-	enemyArray.push_back(enemy3);
-
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(-679, 210);
-	enemyArray.push_back(enemy4);
-
-	enemy5.sprite.setTexture(textureEnemy);
-	enemy5.rect.setPosition(-678, 280);
-	enemyArray.push_back(enemy5);
-	*/
-
-	//Menu
+//Menu
 	sf::RectangleShape menuImage(sf::Vector2f(720.0f, 480.0f));
 	menuImage.setPosition(0.0f, 0.0f);
 	sf::Texture menuTexture;
 	menuTexture.loadFromFile("menu_1.png");
 	menuImage.setTexture(&menuTexture);
 
-	//-----------------------------------------------------------------------------------------------------
-	//Gerardo Clock
+//-----------------------------------------------------------------------------------------------------
+//Gerardo Clock
 	//Clock for sprite rotation
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -314,20 +209,6 @@ int main()
 	//cout << "Playing background music" << endl;
 	audio.backgroundmusic1.play();
 	audio.backgroundmusic1.setVolume(25);
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////// Add for projectile 3/23
-
-	// Projectile Vector Array
-	vector<projectile>::const_iterator iter;
-	vector<projectile> projectileArray;
-
-	// Projectile Object
-	class projectile projectile1;
-		
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
 
 
 	while (window.isOpen())
@@ -447,7 +328,6 @@ int main()
 			
 		}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Add 3/16
 //---------------------------------------------------------------------------------------------------------------
 //Cuong
 //Enemy Wall Collision
@@ -491,7 +371,7 @@ int main()
 		}
 
 
-		//Enemy Wall Collision type 2
+//Enemy Wall Collision type 2 ////////////////////////////////////////////////////// added 04/01
 		counter = 0;
 		for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
 		{
@@ -536,7 +416,7 @@ int main()
 		window.setView(player.view);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////// G + M Add 3/16
-		//Player Wall Collision
+//Player Wall Collision
 		counter = 0;
 		for (wallit = wallArray.begin(); wallit != wallArray.end(); wallit++) {
 			if (player.body.getGlobalBounds().intersects(wallArray[counter].rect.getGlobalBounds()))
@@ -567,7 +447,7 @@ int main()
 			counter++;
 		}
 		
-		//Collision with Resources
+//Collision with Resources
 		counter = 0;
 		for (resourceit = resourceArray.begin(); resourceit != resourceArray.end(); resourceit++) {
 			if (player.body.getGlobalBounds().intersects(resourceArray[counter].rect.getGlobalBounds()))
@@ -608,11 +488,7 @@ int main()
 		//end---------------------------------------------------------------------------------------------------------------
 
 
-/////////////////////////////////////////////////////////////////////////////////
-
 		//window.setView(player.view);
-		
-
 		player.Update(deltaTime);
 		// Draw the sprite
 		window.clear(sf::Color(125, 125, 125));
@@ -644,25 +520,18 @@ int main()
 		window.draw(wall3.sprite);
 		window.draw(wall4.sprite);
 		window.draw(graphics.backgroundTree);
-/////////////////////////////////////////////////////////////  Gerardo Add 3/16
-/*
-		player.Draw(window);
-		window.draw(wall1.sprite);
-		window.draw(wall2.sprite);
-		window.draw(wall3.sprite);
-
-		window.draw(graphics.backgroundTree);
-
-		//displaying Escape Menu
-		if (exitgame == 1)
-			window.draw(menuImage);
-		else
-			menuImage.setTexture(&menuTexture);
-			*/
 		
-//////////////////////////////////////////////////////////////////////////////////////////////// projectile enemy add 3/23
+// projectile enemy add 3/23
 //start---------------------------------------------------------------------------------------------------------------
 //Cuong 
+
+// Projectile Vector Array
+	vector<projectile>::const_iterator iter;
+	vector<projectile> projectileArray;
+
+// Projectile Object
+	class projectile projectile1;
+		
 // Clock for projectile
 		sf::Time elapsed1 = clock1.getElapsedTime();
 		sf::Time elapsed2 = clock2.getElapsedTime();
@@ -675,7 +544,7 @@ int main()
 		{
 			if (enemyArray[counter].chase == true)
 			{
-				if (elapsed3.asSeconds() >= 0.5)
+				if (elapsed3.asSeconds() >= 0.5) ////////////////////////changed to 0.5 on 04/01 
 					//if (elapsed1.asSeconds() >= 1)
 					
 				{
@@ -819,7 +688,7 @@ int main()
 			counter++;
 		}
       
-		// Delete Dead Enemy
+// Delete Dead Enemy
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
@@ -833,7 +702,7 @@ int main()
 			counter++;
 		}
 		
-		// Delete Projectile
+// Delete Projectile
 		counter = 0;
 		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
 		{
@@ -847,9 +716,10 @@ int main()
 			counter++;
 		}
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Projectile Collides with Enemy type 2
+//--------------------------------------------------------------------------------------------------
+//Cuong
+// Projectile Collides with Enemy type 2 /////////////////////////////////////////added on 04/01
+//start---------------------------------------------------------------------------------------
 		counter = 0;
 		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
 		{
@@ -891,25 +761,11 @@ int main()
 		}
 
 		
-
+//end-------------------------------------------------------------------------------------------------------------
 		
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-		/*
-		// Press T to created more enemies for testing
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			enemy1.rect.setPosition(generateRandom(window.getSize().x), generateRandom(window.getSize().y));
-			enemyArray.push_back(enemy1);
-		}
-		*/
-		
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////// Add 3/23
-        // Player Fires Shoot  (Space bar)
+// Player Fires Shoot  (Space bar)
 
 		if (elapsed1.asSeconds() >= 0.1)
 		{
@@ -923,7 +779,7 @@ int main()
 
 		}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Draw Projectiles
+// Draw Projectiles
 		counter = 0;
 		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
 		{
@@ -934,7 +790,7 @@ int main()
 		}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		// Draw Enemies
+// Draw Enemies
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
@@ -946,8 +802,8 @@ int main()
 			counter++;
 		}
 
-
-		// Draw Enemies type 2 no chasing - spawn randomly
+//Cuong 
+// Draw Enemies type 2 no chasing - spawn randomly ///////////////////////////////////// added on 04/01
 		counter = 0;
 		for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
 		{
@@ -958,7 +814,7 @@ int main()
 
 			counter++;
 		}
-
+//---------------------------------------------------------------------------------------------------------------------
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Miguel Draw Resources
 		counter = 0;
@@ -970,9 +826,8 @@ int main()
 			window.draw(resourceArray[counter].sprite);
 			counter++;
 		}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		//---------------------------------------------------------------------------------------------------------------
-		//Miguel Draw Resources
+//---------------------------------------------------------------------------------------------------------------
+//Miguel Draw Resources
 		counter = 0;
 		for (resourceit = resourceArray.begin(); resourceit != resourceArray.end(); resourceit++)
 		{
@@ -993,12 +848,12 @@ int main()
 		window.draw(tower2);
 		window.draw(tower3);
 
-		//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
 
 		//displaying Escape Menu
 		if (exitgame == 1) window.draw(graphics.menuImage);
 		else	graphics.menuImage.setTexture(&graphics.menuTexture);
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
 	
 		window.display();
 	}
