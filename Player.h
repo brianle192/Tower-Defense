@@ -29,6 +29,14 @@ public:
 	bool faceLeft = true;
 	bool faceUp = true;
 	bool faceDown = true;
+	
+	//Miguel
+	int maxHealth = 5;
+	//Player Health+Ammo+Tower
+	int health = 5;
+	int ammo = 3;
+	int tower = 3;
+	int gun = 0;
 
 
 private:
