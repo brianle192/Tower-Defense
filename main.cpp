@@ -821,12 +821,12 @@ int main()
 			{
 				if (player.body.getGlobalBounds().intersects(enemyArray[counter].rect.getGlobalBounds()))
 				{
-					player.maxHealth -= enemyArray[counter].attackDamage;
+					player.health -= enemyArray[counter].attackDamage;
 				}
 				counter++;
 			}
 		}
-		cout << player.maxHealth << endl;
+		cout << player.health << endl;
 
 // Enemy2 collides with Player (Player takes damage)
 		if (elapsed2.asSeconds() >= 0.5)
@@ -838,12 +838,12 @@ int main()
 			{
 				if (player.body.getGlobalBounds().intersects(enemy1Array[counter].rect.getGlobalBounds()))
 				{
-					player.maxHealth -= enemy1Array[counter].attackDamage;
+					player.health -= enemy1Array[counter].attackDamage;
 				}
 				counter++;
 			}
 		}
-		cout << player.maxHealth << endl;
+		cout << player.health << endl;
 //end
 //------------------------------------------------------------------------------------------------------------------------------------
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Add Chasing AI 3/17
