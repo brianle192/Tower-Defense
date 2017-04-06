@@ -24,9 +24,24 @@ public:
 	//North background image
 	sf::RectangleShape background5;
 	sf::Texture backgroundImage5;
+	//Southwest background
+	sf::RectangleShape background6;
+	sf::Texture backgroundImage6;
+	//Southeast background
+	sf::RectangleShape background7;
+	sf::Texture backgroundImage7;
 
 	sf::RectangleShape backgroundTree;
 	sf::Texture treeTexture;
+	
+	//						4/2/17
+	//ExitTop image
+	sf::RectangleShape backgroundExitTop;
+	sf::Texture exittopTexture;
+	//ExitBottom image
+	sf::RectangleShape backgroundExitBottom;
+	sf::Texture exitbottomTexture;
+	////////////////////////////////////////////////////////////////////
 	
 	sf::RectangleShape menuImage;  // added on 03/28
 	sf::Texture menuTexture;
