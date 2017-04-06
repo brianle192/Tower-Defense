@@ -342,7 +342,7 @@ int main()
 	vector<enemy> enemyArray;
 	vector<enemy> enemy1Array;
 
-	// Enemy Objects - make 5 enemies
+	// Enemy Objects - make 3 enemies on 1 map   // changed on 04/05
 	class enemy enemy1, enemy2, enemy3;
 	
 	// enemy type 1 chase player center map
