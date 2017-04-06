@@ -5,7 +5,7 @@ class enemy : public entity
 {
 public:
 	//float movementSpeed = 0.5; //slower
-	int movementSpeed = 1;
+	int movementSpeed = 3;
 	int movementLength = 100; //50 move shorter
 	int attackDamage = 1;
 	int counterWalking = 0;
