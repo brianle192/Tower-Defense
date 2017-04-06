@@ -241,64 +241,7 @@ int main()
 	wall1.rect.setSize(sf::Vector2f(30, 10));
 	wallArray.push_back(wall1);
 
-	/*
-	//test wall by cuong
-	wall1.rect.setPosition(450, 250);
-	wall1.rect.setSize(sf::Vector2f(150, 20));
-	wallArray.push_back(wall1);
-
-	wall1.rect.setPosition(450, 250);
-	wall1.rect.setSize(sf::Vector2f(20, 100));
-	wallArray.push_back(wall1);
-
-	wall1.rect.setPosition(150, 250);
-	wall1.rect.setSize(sf::Vector2f(100, 20));
-	wallArray.push_back(wall1);
-
-	wall1.rect.setPosition(150, 250);
-	wall1.rect.setSize(sf::Vector2f(20, -40));
-	wallArray.push_back(wall1);
-    //
-	wall1.rect.setPosition(0, 0);
-	wall1.rect.setSize(sf::Vector2f(720, 160));
-	wallArray.push_back(wall1);
 	
-	wall2.rect.setPosition(0, 340);
-	wall2.rect.setSize(sf::Vector2f(150, 150));
-	wallArray.push_back(wall2);
-	wall3.rect.setPosition(150, 430);
-	wall3.rect.setSize(sf::Vector2f(570, 50));
-	wallArray.push_back(wall3);
-	wall4.rect.setPosition(560, 240);
-	wall4.rect.setSize(sf::Vector2f(30, 10));
-	wallArray.push_back(wall4);
-	*/
-	
-	/*
-
-	sf::Texture textureWall;
-	textureWall.loadFromFile("cave_top.png");
-	wall1.rect.setTexture(&textureWall);
-	sf::Texture textureWall2;
-	textureWall2.loadFromFile("cave_bottom_left.png");
-	wall2.rect.setTexture(&textureWall2);
-	sf::Texture textureWall3;
-	textureWall3.loadFromFile("cave_bottom_right.png");
-	wall3.rect.setTexture(&textureWall3);
-
-	wall1.rect.setPosition(0, 0);
-	wall1.rect.setSize(sf::Vector2f(720, 200));
-	wallArray.push_back(wall1);
-
-	wall2.rect.setPosition(0, 330);
-	wall2.rect.setSize(sf::Vector2f(150, 150));
-	wallArray.push_back(wall2);
-
-	wall3.rect.setPosition(150, 430);
-	wall3.rect.setSize(sf::Vector2f(570, 50));
-	wallArray.push_back(wall3);
-*/
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------------------------------------------------------------------------------------
@@ -400,8 +343,8 @@ int main()
 	vector<enemy> enemy1Array;
 
 	// Enemy Objects - make 5 enemies
-	class enemy enemy1, enemy2, enemy3;// enemy4, enemy5;
-
+	class enemy enemy1, enemy2, enemy3;
+	
 	// enemy type 1 chase player center map
 	enemy1.sprite.setTexture(textureEnemy); // y: 200 is the border with the wall
 	//enemy1.sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
@@ -435,7 +378,7 @@ int main()
 	enemy1Array.push_back(enemy2); // enemy type 2 spawn randoml
   
 	// 2 enemies type 2 center left map	
-    enemy1.sprite.setTexture(textureEnemy2); 
+        enemy1.sprite.setTexture(textureEnemy2); 
 	enemy1.rect.setPosition(-400, 260);
 	enemy1Array.push_back(enemy1);
 	
@@ -443,57 +386,6 @@ int main()
 	enemy2.rect.setPosition(-400, 280);
 	enemy1Array.push_back(enemy2);
 	
-	/*
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(600, 200);
-	enemyArray.push_back(enemy2);
-	
-	
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(400, 210);
-	enemyArray.push_back(enemy4);
-	//enemy1Array.push_back(enemy4);
-	
-	enemy5.sprite.setTexture(textureEnemy);
-	enemy5.rect.setPosition(300, 280);
-	enemyArray.push_back(enemy5);
-	
-	
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(1100, 260);
-	enemyArray.push_back(enemy2);
-
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(1200, 240);
-	enemyArray.push_back(enemy3);
-
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(1300, 210);
-	enemyArray.push_back(enemy4);
-
-	enemy5.sprite.setTexture(textureEnemy);
-	enemy5.rect.setPosition(1500, 280);
-	enemyArray.push_back(enemy5);
-	
-	//enemy2.sprite.setTexture(textureEnemy); // the second left map
-	//enemy2.rect.setPosition(-500, 260);
-	//enemyArray.push_back(enemy2);
-	
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(-599, 260);
-	enemyArray.push_back(enemy2);
-
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(-468, 240);
-	enemyArray.push_back(enemy3);
-
-	enemy4.sprite.setTexture(textureEnemy);
-	enemy4.rect.setPosition(-679, 210);
-	enemyArray.push_back(enemy4);
-	*/
-
-	
-
 	//Menu
 	sf::RectangleShape menuImage(sf::Vector2f(720.0f, 480.0f));
 	menuImage.setPosition(0.0f, 0.0f);
@@ -858,7 +750,7 @@ int main()
 		player.Update(deltaTime);
 		// Draw the sprite
 		window.clear(sf::Color(125, 125, 125));
-        window.draw(graphics.background);
+                window.draw(graphics.background);
 		window.draw(graphics.background2);
 		window.draw(graphics.background3);
 		window.draw(graphics.background4);
@@ -917,7 +809,8 @@ int main()
 		sf::Time elapsed2 = clock2.getElapsedTime();
 		sf::Time elapsed3 = clock3.getElapsedTime();
 
-//------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------// added 04/05/17
+//Start----------------------------------------------------------------------------------------------------------
 // Enemy collides with Player (Player takes damage)
 		if (elapsed2.asSeconds() >= 0.5)
 		{
@@ -934,7 +827,7 @@ int main()
 			}
 		}
 		cout << player.maxHealth << endl;
-/////
+
 // Enemy2 collides with Player (Player takes damage)
 		if (elapsed2.asSeconds() >= 0.5)
 		{
@@ -951,7 +844,7 @@ int main()
 			}
 		}
 		cout << player.maxHealth << endl;
-
+//end
 //------------------------------------------------------------------------------------------------------------------------------------
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Add Chasing AI 3/17
 // Enemy Chasing (AI)
@@ -968,63 +861,7 @@ int main()
 					
 
 					int tempRand = generateRandom(3);
-					/*
-					if (tempRand == 1) // Enemy Fires Projectile at Player & Chases Player
-					{
-						projectile1.attackDamage = enemyArray[counter].attackDamage;
-						cout << " enemy collision with player" << endl;						// Player to Right
-						if ((player.body.getPosition().x < enemyArray[counter].rect.getPosition().x) && (abs(player.body.getPosition().y - enemyArray[counter].rect.getPosition().y) <= 40))
-						{
-							//soundShot.play();
-							//projectile1.enemyProjectile = true;
-							//projectile1.direction = 3;
-							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
-							//projectileArray.push_back(projectile1);
-							//projectile1.enemyProjectile = false;
-
-							enemyArray[counter].direction = 3;
-						}
-						
-						// Player to Left
-						if ((player.body.getPosition().x > enemyArray[counter].rect.getPosition().x) && (abs(player.body.getPosition().y - enemyArray[counter].rect.getPosition().y) <= 40))
-						{
-							//soundShot.play();
-							//projectile1.enemyProjectile = true;
-							//projectile1.direction = 4;
-							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
-							//projectileArray.push_back(projectile1);
-							//projectile1.enemyProjectile = false;
-
-							enemyArray[counter].direction = 4;
-						}
-
-						// Player to Top
-						if ((player.body.getPosition().y < enemyArray[counter].rect.getPosition().y) && (abs(player.body.getPosition().x - enemyArray[counter].rect.getPosition().x) <= 40))
-						{
-							//soundShot.play();
-							//projectile1.enemyProjectile = true;
-							//projectile1.direction = 1;
-							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
-							//projectileArray.push_back(projectile1);
-							//projectile1.enemyProjectile = false;
-
-							enemyArray[counter].direction = 1;
-						}
-
-						// Player to Bottom
-						if ((player.body.getPosition().y > enemyArray[counter].rect.getPosition().y) && (abs(player.body.getPosition().x - enemyArray[counter].rect.getPosition().x) <= 40))
-						{
-							//soundShot.play();
-							//projectile1.enemyProjectile = true;
-							//projectile1.direction = 2;
-							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
-							//projectileArray.push_back(projectile1);gun
-							//projectile1.enemyProjectile = false;
-
-							enemyArray[counter].direction = 2;
-						}
-					}*/
-					//else if (tempRand == 2) // Enemy Chases Player
+					
 				 if (tempRand == 2) // Enemy Chases Player
 					{
 						if (player.body.getPosition().y < enemyArray[counter].rect.getPosition().y)
@@ -1178,38 +1015,7 @@ int main()
 
 		
 
-		
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-		/*
-		// Press T to created more enemies for testing
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			enemy1.rect.setPosition(generateRandom(window.getSize().x), generateRandom(window.getSize().y));
-			enemyArray.push_back(enemy1);
-		}
-		*/
-		
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////// Add 3/23
-   /*
-// Player Fires Shoot  (Space bar)
-
-		if (elapsed1.asSeconds() >= 0.1)
-		{
-			clock1.restart();
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			{
-				projectile1.rect.setPosition(player.body.getPosition().x + player.body.getSize().x / 2 - projectile1.rect.getSize().x / 2, player.body.getPosition().y + player.body.getSize().y / 2 - projectile1.rect.getSize().y / 2);
-				projectile1.direction = player.direction;
-				projectileArray.push_back(projectile1);
-			}
-
-		}
-		*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Draw Projectiles
 		counter = 0;
