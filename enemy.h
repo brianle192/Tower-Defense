@@ -5,7 +5,7 @@ class enemy : public entity
 {
 public:
 	//float movementSpeed = 0.5; //slower
-	int movementSpeed = 3;
+	int movementSpeed = 4;
 	int movementLength = 100; //50 move shorter
 	int attackDamage = 1;
 	int counterWalking = 0;
@@ -13,7 +13,7 @@ public:
 	int counter = 0;
 	
 	//----------------------------- Add on 03/23 for projectile
-	int hp = 3;
+	int hp = 15;
         bool alive = true;
 	
 	// Add for collision with wall
