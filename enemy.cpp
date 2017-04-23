@@ -64,10 +64,10 @@ void enemy::updateMovement()
 			faceRight = true; faceUp = true;
 		}
 	}
-	else
-	{
+	//else
+	//{
 		// No movement
-	}
+//	}
 
 	counterWalking++;
 	if (counterWalking == 2)

@@ -414,7 +414,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(-300, 500); 
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 
@@ -423,7 +423,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(-400, 700);
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 
@@ -432,7 +432,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(-500, 600);
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 
@@ -443,8 +443,8 @@ int main() {
 	enemy2.text.setCharacterSize(15);
 	enemy2.text.setFillColor(sf::Color::Red);
 	enemy2.rect.setPosition(700, 800);
-	enemy2.spritexStart = 32 * 6;
-	enemy2.spriteyStart = 32 * 4;
+	enemy2.spritexStart = 32 * 7;
+	enemy2.spriteyStart = 32 * 0;
 	enemyArray2.push_back(enemy2); // enemy type 2
 
 	enemy2.sprite.setTexture(textureEnemy2);
@@ -452,8 +452,8 @@ int main() {
 	enemy2.text.setCharacterSize(15);
 	enemy2.text.setFillColor(sf::Color::Red);
 	enemy2.rect.setPosition(600, 700);
-	enemy2.spritexStart = 32 * 6;
-	enemy2.spriteyStart = 32 * 4;
+	enemy2.spritexStart = 32 * 7;
+	enemy2.spriteyStart = 32 * 0;
 	enemyArray2.push_back(enemy2); // enemy type 2
 
 
@@ -465,8 +465,8 @@ int main() {
 	enemy1.text.setCharacterSize(15);
 	enemy1.text.setFillColor(sf::Color::Red);
 	enemy1.rect.setPosition(1000, 700);
-	enemy1.spritexStart = 32 * 3;
-	enemy1.spriteyStart = 32 * 4;
+	enemy1.spritexStart = 32 * 10;
+	enemy1.spriteyStart = 32 * 0;
 	enemyArray.push_back(enemy1); // enemy type 1
 
 	enemy2.sprite.setTexture(textureEnemy2);
@@ -474,8 +474,8 @@ int main() {
 	enemy2.text.setCharacterSize(15);
 	enemy2.text.setFillColor(sf::Color::Red);
 	enemy2.rect.setPosition(1000, 800);
-	enemy2.spritexStart = 32 * 6;
-	enemy2.spriteyStart = 32 * 4;
+	enemy2.spritexStart = 32 * 7;
+	enemy2.spriteyStart = 32 * 0;
 	enemyArray2.push_back(enemy2); // enemy type 2
 
 	enemy1.sprite.setTexture(textureEnemy);
@@ -483,8 +483,8 @@ int main() {
 	enemy1.text.setCharacterSize(15);
 	enemy1.text.setFillColor(sf::Color::Red);
 	enemy1.rect.setPosition(800, 300);
-	enemy1.spritexStart = 32 * 3;
-	enemy1.spriteyStart = 32 * 4;
+	enemy1.spritexStart = 32 * 10;
+	enemy1.spriteyStart = 32 * 0;
 	enemyArray.push_back(enemy1); // enemy type 1 
 
 	enemy3.sprite.setTexture(textureEnemy3);
@@ -492,7 +492,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(800, 300);
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 
@@ -503,8 +503,8 @@ int main() {
 	enemy2.text.setCharacterSize(15);
 	enemy2.text.setFillColor(sf::Color::Red);
 	enemy2.rect.setPosition(300, 400);
-	enemy2.spritexStart = 32 * 6;
-	enemy2.spriteyStart = 32 * 4;
+	enemy2.spritexStart = 32 * 7;
+	enemy2.spriteyStart = 32 * 0;
 	enemyArray2.push_back(enemy2); // enemy type 2
 		
 	enemy3.sprite.setTexture(textureEnemy3);
@@ -512,7 +512,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(100, 400);
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 	
@@ -521,9 +521,9 @@ int main() {
 	enemy1.text.setFont(font);  
 	enemy1.text.setCharacterSize(15);
 	enemy1.text.setFillColor(sf::Color::Red);
-	enemy1.rect.setPosition(500, -10);
-	enemy1.spritexStart = 32 * 3;
-	enemy1.spriteyStart = 32 * 4;
+	enemy1.rect.setPosition(450, -15);
+	enemy1.spritexStart = 32 * 10;
+	enemy1.spriteyStart = 32 * 0;
 	enemyArray.push_back(enemy1); // enemy type 1 
 	
 	enemy3.sprite.setTexture(textureEnemy3);
@@ -531,7 +531,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(400, -10);
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 
@@ -540,7 +540,7 @@ int main() {
 	enemy3.text.setCharacterSize(15);
 	enemy3.text.setFillColor(sf::Color::Red);
 	enemy3.rect.setPosition(450, -15);
-	enemy3.spritexStart = 32 * 0;
+	enemy3.spritexStart = 32 * 4;
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 	//-----------------------------------------------------------------------------------------------------------------------------------------					  
@@ -1588,7 +1588,7 @@ int main() {
 		window.draw(graphics.tower3);
 
 		//Drawing player shade region
-		window.draw(graphics.playerShade);
+		//window.draw(graphics.playerShade);
 
 		//Miguel draw Health Bar		4/2/17-4/7/17
 		for (int j = 0; j < 7; j++) {
