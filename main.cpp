@@ -9,6 +9,7 @@
 #include "Resource.h"
 #include "enemy.h"
 #include "Projectile.h"
+#include "Tower.h"
 
 using namespace std;
 int exitgame = 0;
@@ -23,12 +24,18 @@ int main() {
 	//Class Access Speicifiers
 	Audio audio;
 	Graphic graphics;
+	Tower towers;	//Gerardo 4/15
+	Tower towers2;
+	Tower towers3;
 
 	//Variables
 	int flag = 0, counter = 0, help = 0, counter2 = 0;
 	sf::Clock clock1; // clock for AI Cuong
 	sf::Clock clock2;
 	sf::Clock clock3;
+	sf::Clock clock4;
+
+	int tower_attack = 0;
 
 	//Player character texture, rectangle bound to box
 	sf::Texture playerTexture;
@@ -375,70 +382,183 @@ int main() {
 
 	//---------------------------------------------------------------------------------------------------------------
 	//Cuong
-	// Adding enemy texture
+	// Adding enemy texture type 1 Chasing At Beginning
 	sf::Texture textureEnemy;
-	if (!textureEnemy.loadFromFile("ghost.png")) {
+	if (!textureEnemy.loadFromFile("enemySprite.png")) {
 		return EXIT_FAILURE;
-	}
-	// Adding enemy texture type 2
+	} 
+	// Adding enemy texture type 2 chasing after get shot 
 	sf::Texture textureEnemy2;
-	if (!textureEnemy2.loadFromFile("monster.png")) {
+	if (!textureEnemy2.loadFromFile("enemySprite.png")) {
 		return EXIT_FAILURE;
 	}
 
-	//Cuong
-	// Adding enemies on map 04/13
+    // Adding enemy texture type 3 cmove randomly - no chasing
+	sf::Texture textureEnemy3;
+	if (!textureEnemy3.loadFromFile("enemySprite.png")) {
+		return EXIT_FAILURE;
+	}
+
 	vector<enemy>::const_iterator iter4;
-	vector<enemy> enemyArray;
-	vector<enemy> enemy1Array;
+	vector<enemy> enemyArray;  //type 1
+	vector<enemy> enemyArray2; //type 2
+	vector<enemy> enemyArray3; //type 3
+	
 	class enemy enemy1, enemy2, enemy3;
 
-	// West map enemies
+	//Cuong Locate enemies on the map   4/13
+	//-------------------------------------------------------------------------------------------------------------------------
+	// West Left map enemies - 3 enemies 
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);  
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(-300, 500); 
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);  
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(-400, 700);
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);  
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(-500, 600);
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+
+	 
+	// South Bottom map enemies - 2 enemy
+	enemy2.sprite.setTexture(textureEnemy2);
+	enemy2.text.setFont(font);  
+	enemy2.text.setCharacterSize(15);
+	enemy2.text.setFillColor(sf::Color::Red);
+	enemy2.rect.setPosition(700, 800);
+	enemy2.spritexStart = 32 * 6;
+	enemy2.spriteyStart = 32 * 4;
+	enemyArray2.push_back(enemy2); // enemy type 2
+
+	enemy2.sprite.setTexture(textureEnemy2);
+	enemy2.text.setFont(font);  
+	enemy2.text.setCharacterSize(15);
+	enemy2.text.setFillColor(sf::Color::Red);
+	enemy2.rect.setPosition(600, 700);
+	enemy2.spritexStart = 32 * 6;
+	enemy2.spriteyStart = 32 * 4;
+	enemyArray2.push_back(enemy2); // enemy type 2
+
+
+	
+
+	// East Right map enemies - 4 enemies
 	enemy1.sprite.setTexture(textureEnemy);
-	enemy1.rect.setPosition(-600, 600);
-	enemyArray.push_back(enemy1); // enemy type 1 chasing
-
-	enemy1.sprite.setTexture(textureEnemy2);
-	enemy1.rect.setPosition(-600, 200);
-	enemy1Array.push_back(enemy1); // enemy type 2 spawn randomly
-
-	enemy2.sprite.setTexture(textureEnemy2);
-	enemy2.rect.setPosition(-500, 500);
-	enemy1Array.push_back(enemy2); // enemy type 2 spawn randomly
-
-	// South map enemies
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(500, 800); // enemy type 1 chasing
-	enemyArray.push_back(enemy2);
-
-	// East map enemies
-	enemy2.sprite.setTexture(textureEnemy);
-	enemy2.rect.setPosition(1000, 700);
-	enemyArray.push_back(enemy1);// enemy type 1 chasing
-
-	enemy1.sprite.setTexture(textureEnemy2);
-	enemy1.rect.setPosition(1000, 800);
-	enemy1Array.push_back(enemy1);// enemy type 2 spawn randomly
+	enemy1.text.setFont(font);  
+	enemy1.text.setCharacterSize(15);
+	enemy1.text.setFillColor(sf::Color::Red);
+	enemy1.rect.setPosition(1000, 700);
+	enemy1.spritexStart = 32 * 3;
+	enemy1.spriteyStart = 32 * 4;
+	enemyArray.push_back(enemy1); // enemy type 1
 
 	enemy2.sprite.setTexture(textureEnemy2);
-	enemy2.rect.setPosition(800, 300);
-	enemy1Array.push_back(enemy2); // enemy type 2 spawn randoml
+	enemy2.text.setFont(font);
+	enemy2.text.setCharacterSize(15);
+	enemy2.text.setFillColor(sf::Color::Red);
+	enemy2.rect.setPosition(1000, 800);
+	enemy2.spritexStart = 32 * 6;
+	enemy2.spriteyStart = 32 * 4;
+	enemyArray2.push_back(enemy2); // enemy type 2
 
-	// North map enemies
-	enemy3.sprite.setTexture(textureEnemy);
-	enemy3.rect.setPosition(300, 400);
-	enemyArray.push_back(enemy3);// enemy type 1 chasing
+	enemy1.sprite.setTexture(textureEnemy);
+	enemy1.text.setFont(font);
+	enemy1.text.setCharacterSize(15);
+	enemy1.text.setFillColor(sf::Color::Red);
+	enemy1.rect.setPosition(800, 300);
+	enemy1.spritexStart = 32 * 3;
+	enemy1.spriteyStart = 32 * 4;
+	enemyArray.push_back(enemy1); // enemy type 1 
 
-	enemy3.sprite.setTexture(textureEnemy2);
-	enemy3.rect.setPosition(300, 400);
-	enemy1Array.push_back(enemy3); // enemy type 2 spawn randoml
-   
-	//---------------------------------------------------------------------------------------------------------------
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(800, 300);
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+
+	
+	// North map enemies - 2 enemies
+	enemy2.sprite.setTexture(textureEnemy2);
+	enemy2.text.setFont(font);
+	enemy2.text.setCharacterSize(15);
+	enemy2.text.setFillColor(sf::Color::Red);
+	enemy2.rect.setPosition(300, 400);
+	enemy2.spritexStart = 32 * 6;
+	enemy2.spriteyStart = 32 * 4;
+	enemyArray2.push_back(enemy2); // enemy type 2
+		
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(100, 400);
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+	
+	// North upper map - 3 enemies
+	enemy1.sprite.setTexture(textureEnemy);
+	enemy1.text.setFont(font);  
+	enemy1.text.setCharacterSize(15);
+	enemy1.text.setFillColor(sf::Color::Red);
+	enemy1.rect.setPosition(500, -10);
+	enemy1.spritexStart = 32 * 3;
+	enemy1.spriteyStart = 32 * 4;
+	enemyArray.push_back(enemy1); // enemy type 1 
+	
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(400, -10);
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+
+	enemy3.sprite.setTexture(textureEnemy3);
+	enemy3.text.setFont(font);
+	enemy3.text.setCharacterSize(15);
+	enemy3.text.setFillColor(sf::Color::Red);
+	enemy3.rect.setPosition(450, -15);
+	enemy3.spritexStart = 32 * 0;
+	enemy3.spriteyStart = 32 * 0;
+	enemyArray3.push_back(enemy3); // enemy type 3
+	//-----------------------------------------------------------------------------------------------------------------------------------------					  
+
 	//Cuong
-	// Adding projectile
+	//projectile vector 
 	vector<projectile>::const_iterator iter;
 	vector<projectile> projectileArray;
 	class projectile projectile1;
+
+	//Gerardo Attempting Tower Attacks 4/15
+	//vector<Tower>::const_iterator tower_iter;
+	//vector<Tower> t_projectileArray;
+	//class Tower t_projectile;
+
+	//vector<projectile>::const_iterator t_iter;
+	//vector<projectile> t_projectileArray;
+	//class projectile t_projectile;
 	//---------------------------------------------------------------------------------------------------------------
 
 
@@ -459,6 +579,7 @@ int main() {
 	{
 		deltaTime = clock.restart().asSeconds();
 		sf::Event evnt;
+		//enemyArray3[counter].spawn = true;
 		while (window.pollEvent(evnt))
 		{
 			switch (evnt.type)
@@ -498,6 +619,7 @@ int main() {
 							else
 								player.ammo -= 1;
 							std::cout << "ammo left: " << player.ammo << std::endl;
+							//cuong Gun Shot
 							if (elapsed1.asSeconds() >= 0.1)
 							{
 								clock1.restart();
@@ -506,6 +628,12 @@ int main() {
 								projectileArray.push_back(projectile1);
 								std::cout << "space bar hit" << std::endl;
 							}
+							//Gerardo Tower Attack Speed
+							if (tower_attack == 1) {
+								tower_attack = 0;
+							}
+							else
+								tower_attack++;
 						}
 						else {
 							audio.gunEmptySound.play();
@@ -526,87 +654,203 @@ int main() {
 			{
 				if (evnt.key.code == sf::Mouse::Right)
 				{
+					//Gerardo 4/15
+					//Have player have different towers to be placed
+					//if player.tower == tower1;
+					//if player.tower == tower2;
+
+					//Gerardo 4/15
+					//Make it so the player can only place towers when they have one
+					//in inventory
+					//and then place that tower with attacks down
+					//tower1 = 1 attack
+					//tower2 = 2 attacks
+					//tower3 = 4 attacks
+
 					std::cout << "player towers left" << player.tower << std::endl;
 					sf::Vector2i positionTower = sf::Mouse::getPosition(window);
 					//std::cout << "right click X(" << positionTower.x << ")" << std::endl;
 					//std::cout << "right click Y(" << positionTower.y << ")" << std::endl;
 
-					if (player.tower == 3)
-					{
+
+					//Gerardo 4/15
+					//Last changes, tower differentiality
+					if (player.tower1 == 1) {
+						//if (player.tower == 3)
+						//{
+						towers.active1 = 1;
 						if (player.W == true) {
 							graphics.tower1.setPosition(positionTower.x - 720.0f, positionTower.y);
+							towers.rect.setPosition(positionTower.x - 720.0f, positionTower.y);
 						}
 						else if (player.SW == true) {
 							graphics.tower1.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+							towers.rect.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
 						}
 						else if (player.S == true) {
 							graphics.tower1.setPosition(positionTower.x, positionTower.y + 480.0f);
+							towers.rect.setPosition(positionTower.x, positionTower.y + 480.0f);
+
 						}
 						else if (player.SE == true) {
 							graphics.tower1.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+							towers.rect.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+
 						}
 						else if (player.E == true) {
 							graphics.tower1.setPosition(positionTower.x + 720.0f, positionTower.y);
+							towers.rect.setPosition(positionTower.x + 720.0f, positionTower.y);
+
 						}
 						else if (player.N == true) {
 							graphics.tower1.setPosition(positionTower.x, positionTower.y - 480.0f);
+							towers.rect.setPosition(positionTower.x, positionTower.y - 480.0f);
+
 						}
 						else {
 							graphics.tower1.setPosition(positionTower.x, positionTower.y);
+							towers.rect.setPosition(positionTower.x, positionTower.y);
+
 						}
-						player.tower--;
+						//player.tower--;
 					}
-					else if (player.tower == 2)
-					{
+					if (player.tower2 == 1) {
+						//if (player.tower == 3)
+						//{
+						towers2.active2 = 1;
 						if (player.W == true) {
-							graphics.tower2.setPosition(positionTower.x - 720.0f, positionTower.y);
+							graphics.tower1.setPosition(positionTower.x - 720.0f, positionTower.y);
+							towers2.rect.setPosition(positionTower.x - 720.0f, positionTower.y);
 						}
 						else if (player.SW == true) {
-							graphics.tower2.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+							graphics.tower1.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+							towers2.rect.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
 						}
 						else if (player.S == true) {
-							graphics.tower2.setPosition(positionTower.x, positionTower.y + 480.0f);
+							graphics.tower1.setPosition(positionTower.x, positionTower.y + 480.0f);
+							towers2.rect.setPosition(positionTower.x, positionTower.y + 480.0f);
+
 						}
 						else if (player.SE == true) {
-							graphics.tower2.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+							graphics.tower1.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+							towers2.rect.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+
 						}
 						else if (player.E == true) {
-							graphics.tower2.setPosition(positionTower.x + 720.0f, positionTower.y);
+							graphics.tower1.setPosition(positionTower.x + 720.0f, positionTower.y);
+							towers2.rect.setPosition(positionTower.x + 720.0f, positionTower.y);
+
 						}
 						else if (player.N == true) {
-							graphics.tower2.setPosition(positionTower.x, positionTower.y - 480.0f);
+							graphics.tower1.setPosition(positionTower.x, positionTower.y - 480.0f);
+							towers2.rect.setPosition(positionTower.x, positionTower.y - 480.0f);
+
 						}
 						else {
-							graphics.tower2.setPosition(positionTower.x, positionTower.y);
+							graphics.tower1.setPosition(positionTower.x, positionTower.y);
+							towers2.rect.setPosition(positionTower.x, positionTower.y);
+
 						}
-						player.tower--;
+						//player.tower--;
+					}
+					if (player.tower3 == 1) {
+						//if (player.tower == 3)
+						//{
+						towers3.active3 = 1;
+						if (player.W == true) {
+							graphics.tower1.setPosition(positionTower.x - 720.0f, positionTower.y);
+							towers3.rect.setPosition(positionTower.x - 720.0f, positionTower.y);
+						}
+						else if (player.SW == true) {
+							graphics.tower1.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+							towers3.rect.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+						}
+						else if (player.S == true) {
+							graphics.tower1.setPosition(positionTower.x, positionTower.y + 480.0f);
+							towers3.rect.setPosition(positionTower.x, positionTower.y + 480.0f);
+
+						}
+						else if (player.SE == true) {
+							graphics.tower1.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+							towers3.rect.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+
+						}
+						else if (player.E == true) {
+							graphics.tower1.setPosition(positionTower.x + 720.0f, positionTower.y);
+							towers3.rect.setPosition(positionTower.x + 720.0f, positionTower.y);
+
+						}
+						else if (player.N == true) {
+							graphics.tower1.setPosition(positionTower.x, positionTower.y - 480.0f);
+							towers3.rect.setPosition(positionTower.x, positionTower.y - 480.0f);
+
+						}
+						else {
+							graphics.tower1.setPosition(positionTower.x, positionTower.y);
+							towers3.rect.setPosition(positionTower.x, positionTower.y);
+
+						}
+						//player.tower--;
+					}
+
+
+
+
+					/*
+					else if (player.tower == 2)
+					{
+					towers2.rect.setPosition(positionTower.x - 720.0f, positionTower.y);
+					towers2.active2 = 1;
+					if (player.W == true) {
+					graphics.tower2.setPosition(positionTower.x - 720.0f, positionTower.y);
+					}
+					else if (player.SW == true) {
+					graphics.tower2.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+					}
+					else if (player.S == true) {
+					graphics.tower2.setPosition(positionTower.x, positionTower.y + 480.0f);
+					}
+					else if (player.SE == true) {
+					graphics.tower2.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+					}
+					else if (player.E == true) {
+					graphics.tower2.setPosition(positionTower.x + 720.0f, positionTower.y);
+					}
+					else if (player.N == true) {
+					graphics.tower2.setPosition(positionTower.x, positionTower.y - 480.0f);
+					}
+					else {
+					graphics.tower2.setPosition(positionTower.x, positionTower.y);
+					}
+					player.tower--;
 					}
 					else if (player.tower == 1)
 					{
-						if (player.W == true) {
-							graphics.tower3.setPosition(positionTower.x - 720.0f, positionTower.y);
-						}
-						else if (player.SW == true) {
-							graphics.tower3.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
-						}
-						else if (player.S == true) {
-							graphics.tower3.setPosition(positionTower.x, positionTower.y + 480.0f);
-						}
-						else if (player.SE == true) {
-							graphics.tower3.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
-						}
-						else if (player.E == true) {
-							graphics.tower3.setPosition(positionTower.x + 720.0f, positionTower.y);
-						}
-						else if (player.N == true) {
-							graphics.tower3.setPosition(positionTower.x, positionTower.y - 480.0f);
-						}
-						else {
-							graphics.tower3.setPosition(positionTower.x, positionTower.y);
-						}
-						player.tower--;
-						std::cout << "Placing tower on x: " << positionTower.x << ",y: " << positionTower.y << std::endl;
+					if (player.W == true) {
+					graphics.tower3.setPosition(positionTower.x - 720.0f, positionTower.y);
 					}
+					else if (player.SW == true) {
+					graphics.tower3.setPosition(positionTower.x - 720.0f, positionTower.y + 480.0f);
+					}
+					else if (player.S == true) {
+					graphics.tower3.setPosition(positionTower.x, positionTower.y + 480.0f);
+					}
+					else if (player.SE == true) {
+					graphics.tower3.setPosition(positionTower.x + 720.0f, positionTower.y + 480.0f);
+					}
+					else if (player.E == true) {
+					graphics.tower3.setPosition(positionTower.x + 720.0f, positionTower.y);
+					}
+					else if (player.N == true) {
+					graphics.tower3.setPosition(positionTower.x, positionTower.y - 480.0f);
+					}
+					else {
+					graphics.tower3.setPosition(positionTower.x, positionTower.y);
+					}
+					player.tower--;
+					std::cout << "Placing tower on x: " << positionTower.x << ",y: " << positionTower.y << std::endl;
+					}
+					*/
 				}
 			}
 		}
@@ -623,7 +867,7 @@ int main() {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num3))
 		{
 			//For debugging purposes ONLY
-			player.ammo = 30;
+			player.ammo = 5;
 			player.health = 30;
 			player.tower = 3;
 			player.gun = 1;
@@ -638,7 +882,7 @@ int main() {
 		}
 
 		//---------------------------------------------------------------------------------------------------------------
-		//Cuong Enemy Wall Collision
+		//Cuong Enemy type 1 Wall Collision
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
@@ -680,33 +924,73 @@ int main() {
 
 		//Enemy type 2 Wall Collision 
 		counter = 0;
-		for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
+		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
 		{
 			int counter2 = 0;
 
 			for (wallit = wallArray.begin(); wallit != wallArray.end(); wallit++)
 			{
-				if (enemy1Array[counter].rect.getGlobalBounds().intersects(wallArray[counter2].rect.getGlobalBounds()))
+				if (enemyArray2[counter].rect.getGlobalBounds().intersects(wallArray[counter2].rect.getGlobalBounds()))
 				{	//Hit wall
-					if (enemy1Array[counter].direction == 1) //Up
+					if (enemyArray2[counter].direction == 1) //Up
 					{
-						enemy1Array[counter].faceUp = false;
-						enemy1Array[counter].rect.move(0, 1);
+						enemyArray2[counter].faceUp = false;
+						enemyArray2[counter].rect.move(0, 1);
 					}
-					else if (enemy1Array[counter].direction == 2) //Down
+					else if (enemyArray2[counter].direction == 2) //Down
 					{
-						enemy1Array[counter].faceDown = false;
-						enemy1Array[counter].rect.move(0, -1);
+						enemyArray2[counter].faceDown = false;
+						enemyArray2[counter].rect.move(0, -1);
 					}
-					else if (enemy1Array[counter].direction == 3) //Left
+					else if (enemyArray2[counter].direction == 3) //Left
 					{
-						enemy1Array[counter].faceLeft = false;
-						enemy1Array[counter].rect.move(1, 0);
+						enemyArray2[counter].faceLeft = false;
+						enemyArray2[counter].rect.move(1, 0);
 					}
-					else if (enemy1Array[counter].direction == 4) //Right
+					else if (enemyArray2[counter].direction == 4) //Right
 					{
-						enemy1Array[counter].faceRight = false;
-						enemy1Array[counter].rect.move(-1, 0);
+						enemyArray2[counter].faceRight = false;
+						enemyArray2[counter].rect.move(-1, 0);
+					}
+					else
+					{
+					}
+				}
+				counter2++;
+			}
+			counter++;
+		}
+
+
+		//Enemy type 3 Wall Collision      4/19
+		counter = 0;
+		for (iter4 = enemyArray3.begin(); iter4 != enemyArray3.end(); iter4++)
+		{
+			int counter2 = 0;
+
+			for (wallit = wallArray.begin(); wallit != wallArray.end(); wallit++)
+			{
+				if (enemyArray3[counter].rect.getGlobalBounds().intersects(wallArray[counter2].rect.getGlobalBounds()))
+				{	//Hit wall
+					if (enemyArray3[counter].direction == 1) //Up
+					{
+						enemyArray3[counter].faceUp = false;
+						enemyArray3[counter].rect.move(0, 1);
+					}
+					else if (enemyArray3[counter].direction == 2) //Down
+					{
+						enemyArray3[counter].faceDown = false;
+						enemyArray3[counter].rect.move(0, -1);
+					}
+					else if (enemyArray3[counter].direction == 3) //Left
+					{
+						enemyArray3[counter].faceLeft = false;
+						enemyArray3[counter].rect.move(1, 0);
+					}
+					else if (enemyArray3[counter].direction == 4) //Right
+					{
+						enemyArray3[counter].faceRight = false;
+						enemyArray3[counter].rect.move(-1, 0);
 					}
 					else
 					{
@@ -778,6 +1062,7 @@ int main() {
 				{
 					audio.gunPickupSound.play();
 					player.gun = 1;
+					player.tower1 = 1;
 					cout << "gun: " << player.gun << endl;
 					resourceArray[counter].gathered = true;
 				}
@@ -800,7 +1085,7 @@ int main() {
 
 
 
-		//Player shaded are location
+		//Player shaded area location
 		int temp = player.playerposx;
 		int temp2 = player.playerposy;
 		graphics.playerShade.setPosition(temp - 950.0f, temp2 - 520.0f);
@@ -808,10 +1093,54 @@ int main() {
 		//if (player.ammo < 3)
 		//	graphics.playerShadeTexture.loadFromFile("shade_black_big.png");
 
-		//last changes made to graphics, and main about the shade on the player
-		//Gerardo 4/13
 
+		//Instead have onely 1 towers class?
+		//Towers shoot different directions
+		//Gerardo Tower Attacks 4/15
+		//player.tower2 = 1;
+		//player.tower3 = 1;
+		//player.tower1 = 1;
 
+		if (tower_attack == 1) {
+			if (towers.active1 == 1) {
+				towers.direction = player.direction;
+				projectileArray.push_back(towers);
+			}
+
+			if (towers2.active2 == 1) {
+				towers2.direction = player.direction;
+				projectileArray.push_back(towers2);
+
+				//if player.direction 1
+				//	then direction = 2
+
+				if (player.direction == 1)
+					towers2.direction = 3;
+				else if (player.direction == 2)
+					towers2.direction = 3;
+				else if (player.direction == 3)
+					towers2.direction = 2;
+				else
+					towers2.direction = 2;
+				//towers2.direction = 3;
+				projectileArray.push_back(towers2);
+			}
+
+			if (towers3.active3 == 1) {
+
+				towers3.direction = player.direction;
+				projectileArray.push_back(towers3);
+
+				towers3.direction = 1;
+				projectileArray.push_back(towers3);
+
+				towers3.direction = 4;
+				projectileArray.push_back(towers3);
+
+			}
+
+			tower_attack = 0;
+		}
 
 
 		player.Update(deltaTime);
@@ -849,16 +1178,17 @@ int main() {
 		//Cuong Enemy Vector Array
 		sf::Time elapsed2 = clock2.getElapsedTime();
 		sf::Time elapsed3 = clock3.getElapsedTime();
-		// Cuong
-		// Enemy Chasing (AI)
+		sf::Time elapsed4 = clock4.getElapsedTime();
+
+		// Enemy type 1 Chasing (AI) at Beginning (Boss)
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
 			if (enemyArray[counter].chase == true)
-			{
-				if (elapsed3.asSeconds() >= 0.5) //Changed to .5 on 04/01
+			//{
+				if (elapsed2.asSeconds() >= 0.5) //Changed to .5 on 04/01
 				{
-					clock3.restart();
+					clock2.restart();
 					int tempRand = generateRandom(3);
 					//Added 04/01
 					if (tempRand == 1) // Enemy Chases Player
@@ -901,6 +1231,66 @@ int main() {
 						else if (player.body.getPosition().y > enemyArray[counter].rect.getPosition().y)
 						{
 							enemyArray[counter].direction = 2;
+						//}
+					}
+				}
+			}
+			counter++;
+		}
+		//---------------------------------------------------------------------------
+		
+		// Enemy type 2 Chasing (AI) if get shot
+		counter = 0;
+		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
+		{
+			if (elapsed3.asSeconds() >= 0.5) //Changed to .5 on 04/01
+				{
+					if (enemyArray2[counter].aggroed == true)
+					{
+
+					clock3.restart();
+					int tempRand = generateRandom(3);
+					//Added 04/01
+					if (tempRand == 1) // Enemy Chases Player
+					{
+						projectile1.attackDamage = enemyArray2[counter].attackDamage;
+					}
+					if (tempRand == 2)
+					{
+						if (player.body.getPosition().y < enemyArray2[counter].rect.getPosition().y)
+						{
+							enemyArray2[counter].direction = 1;
+						}
+						else if (player.body.getPosition().y > enemyArray2[counter].rect.getPosition().y)
+						{
+							enemyArray2[counter].direction = 2;
+						}
+						else if (player.body.getPosition().x < enemyArray2[counter].rect.getPosition().x)
+						{
+							enemyArray2[counter].direction = 3;
+						}
+						else if (player.body.getPosition().x > enemyArray2[counter].rect.getPosition().x)
+						{
+							enemyArray2[counter].direction = 4;
+						}
+					}
+					else // Enemy Chases Player
+					{
+						if (player.body.getPosition().x < enemyArray2[counter].rect.getPosition().x)
+						{
+							enemyArray2[counter].direction = 3;
+						}
+						else if (player.body.getPosition().x > enemyArray2[counter].rect.getPosition().x)
+						{
+							enemyArray2[counter].direction = 4;
+						}
+						else if (player.body.getPosition().y < enemyArray2[counter].rect.getPosition().y)
+						{
+							enemyArray2[counter].direction = 1;
+						}
+						else if (player.body.getPosition().y > enemyArray2[counter].rect.getPosition().y)
+						{
+							enemyArray2[counter].direction = 2;
 						}
 					}
 				}
@@ -908,8 +1298,13 @@ int main() {
 			counter++;
 		}
 
+		// Enemy type 3 Movement Randomly     4-19
+		
+		
+		
+
 		//Cuong
-		//Projectiles colliding with enemies 3/31
+		//Projectiles colliding with enemies type 1  3/31
 		counter = 0;
 		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
 		{
@@ -920,8 +1315,8 @@ int main() {
 				{
 					cout << "bullet collision with enemy" << endl;
 					projectileArray[counter].destroy = true;
-					enemyArray[counter2].hp -= projectileArray[counter].attackDamage;
-					if (enemyArray[counter2].hp <= 0)
+					enemyArray[counter2].hp1 -= projectileArray[counter].attackDamage;
+					if (enemyArray[counter2].hp1 <= 0)
 					{
 						enemyArray[counter2].alive = false;
 					}
@@ -932,7 +1327,58 @@ int main() {
 			}
 			counter++;
 		}
+		//--------------------------------------------------------------------------------------------------------------------
+
+		
 		//Cuong
+		//Projectiles colliding with enemies type 2 
+		counter = 0;
+		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
+		{
+			counter2 = 0;
+			for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
+			{
+				if (projectileArray[counter].rect.getGlobalBounds().intersects(enemyArray2[counter2].rect.getGlobalBounds()))
+				{
+					cout << "bullet collision with enemy" << endl;
+					projectileArray[counter].destroy = true;
+					enemyArray2[counter2].hp2 -= projectileArray[counter].attackDamage;
+					if (enemyArray2[counter2].hp2 <= 0)
+					{
+						enemyArray2[counter2].alive = false;
+					}
+					// Chasing
+					enemyArray2[counter2].aggroed = true;
+				}
+				counter2++;
+			}
+			counter++;
+		}
+
+		//Projectiles colliding with enemies type 3     4/19
+		counter = 0;
+		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
+		{
+			counter2 = 0;
+			for (iter4 = enemyArray3.begin(); iter4 != enemyArray3.end(); iter4++)
+			{
+				if (projectileArray[counter].rect.getGlobalBounds().intersects(enemyArray3[counter2].rect.getGlobalBounds()))
+				{
+					cout << "bullet collision with enemy" << endl;
+					projectileArray[counter].destroy = true;
+					enemyArray3[counter2].hp3 -= projectileArray[counter].attackDamage;
+					if (enemyArray3[counter2].hp3 <= 0)
+					{
+						enemyArray3[counter2].alive = false;
+					}
+					
+				}
+				counter2++;
+			}
+			counter++;
+		}
+		//-------------------------------------------------------------------------------------------------------
+
 		//Miguel					4/7/17
 		//Enemy Player Collision
 		counter = 0;
@@ -949,9 +1395,9 @@ int main() {
 			counter++;
 		}
 		counter = 0;
-		for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
+		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
 		{
-			if (player.body.getGlobalBounds().intersects(enemy1Array[counter].rect.getGlobalBounds()))
+			if (player.body.getGlobalBounds().intersects(enemyArray2[counter].rect.getGlobalBounds()))
 			{
 				player.health -= enemy2.enemyAttackDamage2;
 				if (player.health <= 0) {
@@ -961,6 +1407,22 @@ int main() {
 			}
 			counter++;
 		}
+
+		counter = 0;            //4/19
+		for (iter4 = enemyArray3.begin(); iter4 != enemyArray3.end(); iter4++)
+		{
+			if (player.body.getGlobalBounds().intersects(enemyArray3[counter].rect.getGlobalBounds()))
+			{
+				player.health -= enemy2.enemyAttackDamage3;
+				if (player.health <= 0) {
+					player.health = 0;
+				}
+				cout << "Enemy3 attacked Player" << player.health << " damage!" << endl;
+			}
+			counter++;
+		}
+		
+		//Cuong
 		//Projectile Wall Collision
 		counter = 0;
 		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
@@ -978,23 +1440,48 @@ int main() {
 			}
 			counter++;
 		}
-		//End
-
+		
 		//Cuong
-		//----------------------------------------------------------------------------------------------------------
-		// Delete Dead Enemy
+		// Delete Dead Enemy type 1
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
 			if (enemyArray[counter].alive == false)
 			{
-				cout << "Enemy was killed" << endl;
+				cout << "Enemy1 was killed" << endl;
 				enemyArray.erase(iter4);
 				break;
 			}
 			counter++;
 		}
 
+		// Delete Dead Enemy type 2
+		counter = 0;
+		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
+		{
+			if (enemyArray2[counter].alive == false)
+			{
+				cout << "Enemy2 was killed" << endl;
+				enemyArray2.erase(iter4);
+				break;
+			}
+			counter++;
+		}
+
+		// Delete Dead Enemy type 3     4/19
+		counter = 0;
+		for (iter4 = enemyArray3.begin(); iter4 != enemyArray3.end(); iter4++)
+		{
+			if (enemyArray3[counter].alive == false)
+			{
+				cout << "Enemy3 was killed" << endl;
+				enemyArray3.erase(iter4);
+				break;
+			}
+			counter++;
+		}
+
+		//Cuong
 		// Delete Projectile
 		counter = 0;
 		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
@@ -1009,40 +1496,8 @@ int main() {
 			counter++;
 		}
 
-		//Cuong		Projectile Collides with Enemy type 2 
-		counter = 0;
-		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
-		{
-			counter2 = 0;
-			for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
-			{
-				if (projectileArray[counter].rect.getGlobalBounds().intersects(enemy1Array[counter2].rect.getGlobalBounds()))
-				{
-					cout << "bullet collision with enemy" << endl;
-					projectileArray[counter].destroy = true;
-					enemy1Array[counter2].hp -= projectileArray[counter].attackDamage;
-					if (enemy1Array[counter2].hp <= 0)
-					{
-						enemy1Array[counter2].alive = false;
-					}
-				}
-				counter2++;
-			}
-			counter++;
-		}
 
-		// Delete Dead Enemy
-		counter = 0;
-		for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
-		{
-			if (enemy1Array[counter].alive == false)
-			{
-				cout << "Enemy was killed" << endl;
-				enemy1Array.erase(iter4);
-				break;
-			}
-			counter++;
-		}
+		
 
 		//Cuong
 		// Draw Projectiles
@@ -1053,8 +1508,9 @@ int main() {
 			window.draw(projectileArray[counter].rect);
 			counter++;
 		}
+
 		//Cuong
-		// Draw Enemies
+		// Draw Enemies type 1
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
@@ -1064,16 +1520,53 @@ int main() {
 			counter++;
 		}
 
-		//Cuong		Draw Enemies type 2 no chasing - spawn randomly 
+		// hp
 		counter = 0;
-		for (iter4 = enemy1Array.begin(); iter4 != enemy1Array.end(); iter4++)
+		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
-			enemy1Array[counter].update();
-			enemy1Array[counter].updateMovement();
-			window.draw(enemy1Array[counter].sprite);
+			enemyArray[counter].text.setString("blood " + to_string(enemyArray[counter].hp1) + "/" + to_string(enemyArray[counter].maxhp1));
+			window.draw(enemyArray[counter].text);
 			counter++;
 		}
-		//-----------------------------------------------------------------------------------------------------------------------------------
+
+		//Cuong		
+		//Draw Enemies type 2  
+		counter = 0;
+		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
+		{
+			enemyArray2[counter].update();
+			enemyArray2[counter].updateMovement();
+			window.draw(enemyArray2[counter].sprite);
+			counter++;
+		}
+
+		counter = 0;
+		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
+		{
+			enemyArray2[counter].text.setString("blood " + to_string(enemyArray2[counter].hp2) + "/" + to_string(enemyArray2[counter].maxhp2));
+			window.draw(enemyArray2[counter].text);
+			counter++;
+		}
+
+		//Cuong		  4/19
+		//Draw Enemies type 3  
+		counter = 0;
+		for (iter4 = enemyArray3.begin(); iter4 != enemyArray3.end(); iter4++)
+		{
+			enemyArray3[counter].update();
+			enemyArray3[counter].updateMovement();
+			window.draw(enemyArray3[counter].sprite);
+			counter++;
+		}
+
+		counter = 0;
+		for (iter4 = enemyArray3.begin(); iter4 != enemyArray3.end(); iter4++)
+		{
+			enemyArray3[counter].text.setString("blood " + to_string(enemyArray3[counter].hp3) + "/" + to_string(enemyArray3[counter].maxhp3));
+			window.draw(enemyArray3[counter].text);
+			counter++;
+		}
+		//-------------------------------------------------------------------------------------------------------------
 
 		//Miguel Draw Resources
 		counter = 0;
