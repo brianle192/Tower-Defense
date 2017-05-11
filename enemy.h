@@ -7,7 +7,7 @@ class enemy
 {
 public:
 	//float movementSpeed = 0.5; // slower
-	int movementSpeed = 2;
+	int movementSpeed = 4;
 	int movementLength = 50; // 50
 	int attackDamage = 1;
 	/////
@@ -19,10 +19,10 @@ public:
 	int direction = 0; // 1 - up, 2 - down, 3 - left, 4 - right
 	int counter = 0;
 	
-    int hp1 = 3;
+    int hp1 = 10;
 	int hp2 = 2;
 	int hp3 = 1;
-	int maxhp1 = 3;
+	int maxhp1 = 10;
 	int maxhp2 = 2;
 	int maxhp3 = 1;
 

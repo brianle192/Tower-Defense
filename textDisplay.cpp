@@ -9,7 +9,7 @@ textDisplay::textDisplay()
 
 void textDisplay::update()
 {
-	text.move(0, -movementSpeed);
+	text.move(0, movementSpeed);
 
 	counter++;
 	if (counter >= lifeTime)

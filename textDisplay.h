@@ -3,10 +3,10 @@
 class textDisplay : public entity
 {
 public:
-	float movementSpeed = 2;
+	float movementSpeed = 3;
 	string myString = "blood";
 	int counter = 0;
-	int lifeTime = 2;
+	int lifeTime = 5;
 	bool destroy = false;
 
 	textDisplay();
