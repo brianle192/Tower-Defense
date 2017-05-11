@@ -10,6 +10,7 @@
 #include "enemy.h"
 #include "Projectile.h"
 #include "Tower.h"
+#include "textDisplay.h" //Cuong 05/10
 
 using namespace std;
 int exitgame = 0;
@@ -42,14 +43,19 @@ int main() {
 	playerTexture.loadFromFile("char_sprite_walk3.png");
 	Player player(&playerTexture, sf::Vector2u(3, 3), 0.3f, 100.0f);
 
-
+	
 	//---------------------------------------------------------------------------------------------------------------
 	//Miguel text on screen
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf")) {
 		std::cout << "can't open ttf file" << std::endl;
 	}
-	sf::Text text;
+	//sf::Text text;
+	sf::Text text("Gil: ", font, 5);
+	//text.setColor(sf::Color::Yellow);
+	text.setPosition(0, 0);
+
+
 	text.setFont(font);
 	text.setCharacterSize(15);
 	//text.setColor(sf::Color::Red);
@@ -371,6 +377,15 @@ int main() {
 	//---------------------------------------------------------------------------------------------------------------
 
 
+
+
+	player.tower = 1;
+	player.tower1 = 1;
+	player.gun = 1;
+
+
+
+
 	//---------------------------------------------------------------------------------------------------------------
 	//Gerardo Player	Assigning Player Footstep Sounds
 	if (!player.soundBuf.loadFromFile("foot.wav"))
@@ -409,6 +424,7 @@ int main() {
 	//Cuong Locate enemies on the map   4/13
 	//-------------------------------------------------------------------------------------------------------------------------
 	// West Left map enemies - 3 enemies 
+	//text
 	enemy3.sprite.setTexture(textureEnemy3);
 	enemy3.text.setFont(font);  
 	enemy3.text.setCharacterSize(15);
@@ -544,6 +560,20 @@ int main() {
 	enemy3.spriteyStart = 32 * 0;
 	enemyArray3.push_back(enemy3); // enemy type 3
 	//-----------------------------------------------------------------------------------------------------------------------------------------					  
+	
+	
+	
+	//--------------------------------------------------------------------------------------------------------------------------------------
+	//Cuong 05/10
+	// Text Vector Array
+	vector<textDisplay>::const_iterator iter8;
+	vector<textDisplay> textDisplayArray;
+
+	// Text Display Object
+	class textDisplay textDisplay1;
+	textDisplay1.text.setFont(font);
+	//------------------------------------------------------------------------------------------------------------------------------------------
+
 
 	//Cuong
 	//projectile vector 
@@ -868,7 +898,7 @@ int main() {
 		{
 			//For debugging purposes ONLY
 			player.ammo = 5;
-			player.health = 30;
+			player.health = 5;
 			player.tower = 3;
 			player.gun = 1;
 		}
@@ -1180,22 +1210,85 @@ int main() {
 		sf::Time elapsed3 = clock3.getElapsedTime();
 		sf::Time elapsed4 = clock4.getElapsedTime();
 
+
+
+		//Cuong 05/10
+		//---------------------------------------------------------------------------------------------------------------------
 		// Enemy type 1 Chasing (AI) at Beginning (Boss)
 		counter = 0;
 		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
 		{
 			if (enemyArray[counter].chase == true)
 			//{
-				if (elapsed2.asSeconds() >= 0.5) //Changed to .5 on 04/01
+				if (elapsed3.asSeconds() >= 1) //change 0.5 to 1
 				{
-					clock2.restart();
+					clock3.restart();
 					int tempRand = generateRandom(3);
-					//Added 04/01
-					if (tempRand == 1) // Enemy Chases Player
+				
+					if (tempRand == 1) // Enemy type 1 fire projectile and  Chases Player
 					{
 						projectile1.attackDamage = enemyArray[counter].attackDamage;
+					
+						// Player to Left
+						if ((player.body.getPosition().x < enemyArray[counter].rect.getPosition().x) && (abs(player.body.getPosition().y - enemyArray[counter].rect.getPosition().y) <= 40)) 
+						{
+							
+							projectile1.enemyProjectile = true;
+							projectile1.direction = 3;
+							projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x -15 + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y - 15 + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+							projectileArray.push_back(projectile1);
+							projectile1.enemyProjectile = false;
+
+							enemyArray[counter].direction = 3;
+						}
+
+						// Player to Right
+						if ((player.body.getPosition().x > enemyArray[counter].rect.getPosition().x) && (abs(player.body.getPosition().y - enemyArray[counter].rect.getPosition().y) <= 40))
+						{
+							
+							projectile1.enemyProjectile = true;
+							projectile1.direction = 4;
+							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+							projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x - 15 + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y - 15 + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+
+							projectileArray.push_back(projectile1);
+							projectile1.enemyProjectile = false;
+
+							enemyArray[counter].direction = 4;
+						}
+
+						// Player to Top
+						if ((player.body.getPosition().y < enemyArray[counter].rect.getPosition().y) && (abs(player.body.getPosition().x - enemyArray[counter].rect.getPosition().x) <= 40))
+						{
+							
+							projectile1.enemyProjectile = true;
+							projectile1.direction = 1;
+							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+							projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x - 10 + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y - 15 + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+
+							projectileArray.push_back(projectile1);
+							projectile1.enemyProjectile = false;
+
+							enemyArray[counter].direction = 1;
+						}
+
+						// Player to Bottom
+						if ((player.body.getPosition().y > enemyArray[counter].rect.getPosition().y) && (abs(player.body.getPosition().x - enemyArray[counter].rect.getPosition().x) <= 40))
+						{
+							
+							projectile1.enemyProjectile = true;
+							projectile1.direction = 2;
+							//projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+							projectile1.rect.setPosition(enemyArray[counter].rect.getPosition().x - 15 + enemyArray[counter].rect.getSize().x / 2 - projectile1.rect.getSize().x / 2, enemyArray[counter].rect.getPosition().y - 15 + enemyArray[counter].rect.getSize().y / 2 - projectile1.rect.getSize().y / 2);
+
+							projectileArray.push_back(projectile1);
+							projectile1.enemyProjectile = false;
+
+							enemyArray[counter].direction = 2;
+						}
+
 					}
-					if (tempRand == 2)
+					else if (tempRand == 2)
 					{
 						if (player.body.getPosition().y < enemyArray[counter].rect.getPosition().y)
 						{
@@ -1237,8 +1330,10 @@ int main() {
 			}
 			counter++;
 		}
-		//---------------------------------------------------------------------------
-		
+		//-------------------------------------------------------------------------------------------------------------------------------------------
+		// end
+
+
 		// Enemy type 2 Chasing (AI) if get shot
 		counter = 0;
 		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
@@ -1301,8 +1396,8 @@ int main() {
 		// Enemy type 3 Movement Randomly     4-19
 		
 		
+					
 		
-
 		//Cuong
 		//Projectiles colliding with enemies type 1  3/31
 		counter = 0;
@@ -1315,6 +1410,15 @@ int main() {
 				{
 					cout << "bullet collision with enemy" << endl;
 					projectileArray[counter].destroy = true;
+
+					//Cuong 05/10
+					// Text blood Display
+					//----------------------------------------------------------------------------------------------
+					textDisplay1.text.setString(to_string(projectileArray[counter].attackDamage));
+					textDisplay1.text.setPosition(enemyArray[counter2].rect.getPosition().x + enemyArray[counter2].rect.getSize().x / 2, enemyArray[counter2].rect.getPosition().y - enemyArray[counter2].rect.getSize().y / 2);
+					textDisplayArray.push_back(textDisplay1);
+					//----------------------------------------------------------------------------------------------
+
 					enemyArray[counter2].hp1 -= projectileArray[counter].attackDamage;
 					if (enemyArray[counter2].hp1 <= 0)
 					{
@@ -1342,6 +1446,13 @@ int main() {
 				{
 					cout << "bullet collision with enemy" << endl;
 					projectileArray[counter].destroy = true;
+
+					//Cuong 05/10
+					// Text Display
+					textDisplay1.text.setString(to_string(projectileArray[counter].attackDamage));
+					textDisplay1.text.setPosition(enemyArray2[counter2].rect.getPosition().x + enemyArray2[counter2].rect.getSize().x / 2, enemyArray2[counter2].rect.getPosition().y - enemyArray2[counter2].rect.getSize().y / 2);
+					textDisplayArray.push_back(textDisplay1);
+
 					enemyArray2[counter2].hp2 -= projectileArray[counter].attackDamage;
 					if (enemyArray2[counter2].hp2 <= 0)
 					{
@@ -1366,6 +1477,13 @@ int main() {
 				{
 					cout << "bullet collision with enemy" << endl;
 					projectileArray[counter].destroy = true;
+
+					//Cuong 05/10
+					// Text Display
+					textDisplay1.text.setString(to_string(projectileArray[counter].attackDamage));
+					textDisplay1.text.setPosition(enemyArray3[counter2].rect.getPosition().x + enemyArray3[counter2].rect.getSize().x / 2, enemyArray3[counter2].rect.getPosition().y - enemyArray[counter2].rect.getSize().y / 2);
+					textDisplayArray.push_back(textDisplay1);
+
 					enemyArray3[counter2].hp3 -= projectileArray[counter].attackDamage;
 					if (enemyArray3[counter2].hp3 <= 0)
 					{
@@ -1378,27 +1496,47 @@ int main() {
 			counter++;
 		}
 		//-------------------------------------------------------------------------------------------------------
-
-		//Miguel					4/7/17
-		//Enemy Player Collision
+		
+		//--------------------------------------------------------------------------------------------------------------------------------
+		//Cuong 05/10
+		//Enemy boss fire projectile collides Player 
 		counter = 0;
-		for (iter4 = enemyArray.begin(); iter4 != enemyArray.end(); iter4++)
+		for (iter = projectileArray.begin(); iter != projectileArray.end(); iter++)
 		{
-			if (player.body.getGlobalBounds().intersects(enemyArray[counter].rect.getGlobalBounds()))
+			if (projectileArray[counter].enemyProjectile == true)
 			{
-				player.health -= enemy1.enemyAttackDamage1;
-				if (player.health <= 0) {
-					player.health = 0;
+
+				if (projectileArray[counter].rect.getGlobalBounds().intersects(player.body.getGlobalBounds()))
+				{
+					//Cuong 05/10
+					// Text Display
+					textDisplay1.text.setString(to_string(enemyArray[counter].attackDamage));
+					textDisplay1.text.setPosition(player.body.getPosition().x + player.body.getSize().x / 2, player.body.getPosition().y - player.body.getSize().y / 2);
+					textDisplayArray.push_back(textDisplay1);
+
+					player.health -= enemy1.enemyAttackDamage1;
+					if (player.health <= 0) {
+						player.health = 0;
+					}
+					cout << "Enemy1 attacked Player by: " << player.health << " damage!" << endl;
+					projectileArray[counter].destroy = true;
 				}
-				cout << "Enemy1 attacked Player by: " << player.health << " damage!" << endl;
 			}
 			counter++;
 		}
+		//-------------------------------------------------------------------------------------------------------------------------------------------
+
 		counter = 0;
 		for (iter4 = enemyArray2.begin(); iter4 != enemyArray2.end(); iter4++)
 		{
 			if (player.body.getGlobalBounds().intersects(enemyArray2[counter].rect.getGlobalBounds()))
 			{
+				//Cuong 05/10
+				// Text Display
+				textDisplay1.text.setString(to_string(enemyArray[counter].attackDamage));
+				textDisplay1.text.setPosition(player.body.getPosition().x + player.body.getSize().x / 2, player.body.getPosition().y - player.body.getSize().y / 2);
+				textDisplayArray.push_back(textDisplay1);
+
 				player.health -= enemy2.enemyAttackDamage2;
 				if (player.health <= 0) {
 					player.health = 0;
@@ -1413,6 +1551,13 @@ int main() {
 		{
 			if (player.body.getGlobalBounds().intersects(enemyArray3[counter].rect.getGlobalBounds()))
 			{
+
+				//Cuong 05/10
+				// Text Display
+				textDisplay1.text.setString(to_string(enemyArray[counter].attackDamage));
+				textDisplay1.text.setPosition(player.body.getPosition().x + player.body.getSize().x / 2, player.body.getPosition().y - player.body.getSize().y / 2);
+				textDisplayArray.push_back(textDisplay1);
+
 				player.health -= enemy2.enemyAttackDamage3;
 				if (player.health <= 0) {
 					player.health = 0;
@@ -1495,7 +1640,22 @@ int main() {
 
 			counter++;
 		}
+		
+		//-----------------------------------------------------------------------------------------------
+		//Cuong 05/10
+		// Delete Text Display
+		counter = 0;
+		for (iter8 = textDisplayArray.begin(); iter8 != textDisplayArray.end(); iter8++)
+		{
+			if (textDisplayArray[counter].destroy == true)
+			{
+				textDisplayArray.erase(iter8);
+				break;
+			}
 
+			counter++;
+		}
+		//------------------------------------------------------------------------------------------------------------
 
 		
 
@@ -1609,6 +1769,21 @@ int main() {
 		//displaying Escape Menu
 		if (exitgame == 1) window.draw(graphics.menuImage);
 		else	graphics.menuImage.setTexture(&graphics.menuTexture);
+		
+		
+		//----------------------------------------------------------------------------------------------------------------------- 
+		//Cuong 05/10
+		// Draw Text blood
+		counter = 0;
+		for (iter8 = textDisplayArray.begin(); iter8 != textDisplayArray.end(); iter8++)
+		{
+			textDisplayArray[counter].update();
+			window.draw(textDisplayArray[counter].text);
+
+			counter++;
+		}
+		//-----------------------------------------------------------------------------------------------------------------------
+
 
 		window.display();
 	}
