@@ -38,6 +38,7 @@ int main() {
 	sf::Clock clock4;
 
 	int tower_attack = 0;
+	int shade_big = 0;
 
 	//Player character texture, rectangle bound to box
 	sf::Texture playerTexture;
@@ -103,6 +104,41 @@ int main() {
 	textScore5.setString(totalScore.str());
 	textScore6.setString(totalScore.str());
 	textScore7.setString(totalScore.str());
+
+
+
+	ostringstream totalAmmo;
+	totalAmmo << "Ammo: " << player.ammo;
+	sf::Text textAmmo, textAmmo2, textAmmo3, textAmmo4, textAmmo5, textAmmo6, textAmmo7;
+	textAmmo.setFont(font);
+	textAmmo.setCharacterSize(15);
+	textAmmo2.setFont(font);
+	textAmmo2.setCharacterSize(15);
+	textAmmo3.setFont(font);
+	textAmmo3.setCharacterSize(15);
+	textAmmo4.setFont(font);
+	textAmmo4.setCharacterSize(15);
+	textAmmo5.setFont(font);
+	textAmmo5.setCharacterSize(15);
+	textAmmo6.setFont(font);
+	textAmmo6.setCharacterSize(15);
+	textAmmo7.setFont(font);
+	textAmmo7.setCharacterSize(15);
+	textAmmo.setPosition({ -111, 63 });
+	textAmmo2.setPosition({ -111, 543 });
+	textAmmo3.setPosition({ 609, 543 });
+	textAmmo4.setPosition({ 1329, 543 });
+	textAmmo5.setPosition({ 1329, 63 });
+	textAmmo6.setPosition({ 609, -418 });
+	textAmmo7.setPosition({ 609, 63 });
+	textAmmo.setString(totalAmmo.str());
+	textAmmo2.setString(totalAmmo.str());
+	textAmmo3.setString(totalAmmo.str());
+	textAmmo4.setString(totalAmmo.str());
+	textAmmo5.setString(totalAmmo.str());
+	textAmmo6.setString(totalAmmo.str());
+	textAmmo7.setString(totalAmmo.str());
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//														4/2/17-4/7/17
 	//Miguel Health+Ammo Bar
@@ -415,14 +451,16 @@ int main() {
 	vector<Resource>::const_iterator resourceit;
 	vector<Resource> resourceArray;
 	class Resource resource1;
-	sf::Texture textureResource1, textureResource2, textureResource3,textureResource4, textureResource5, textureResource6;
-
+	//sf::Texture textureResource1, textureResource2, textureResource3,textureResource4, textureResource5, textureResource6;
+	sf::Texture textureResource1, textureResource2, textureResource3, textureResource4, textureResource5, textureResource6, textureResource7, textureResource8;
 	resource1.resource1 = true;
 	resource1.resource2 = false;
 	resource1.resource3 = false;
 	resource1.resource4 = false;
 	resource1.resource5 = false;
 	resource1.resource6 = false;
+	resource1.resource7 = false;
+	resource1.resource8 = false;
 	textureResource1.loadFromFile("res_health.png");
 	resource1.rect.setTexture(&textureResource1);
 	resource1.rect.setPosition(-100, 400);
@@ -441,6 +479,8 @@ int main() {
 	resource1.resource4 = false;
 	resource1.resource5 = false;
 	resource1.resource6 = false;
+	resource1.resource7 = false;
+	resource1.resource8 = false;
 	textureResource2.loadFromFile("res_bullet.png");
 	resource1.rect.setTexture(&textureResource2);
 	resource1.rect.setPosition(-100, 75);
@@ -461,6 +501,8 @@ int main() {
 	resource1.resource4 = false;
 	resource1.resource5 = false;
 	resource1.resource6 = false;
+	resource1.resource7 = false;
+	resource1.resource8 = false;
 	textureResource3.loadFromFile("res_gun.png");
 	resource1.rect.setTexture(&textureResource3);
 	resource1.rect.setPosition(-650, 70);
@@ -473,6 +515,8 @@ int main() {
 	resource1.resource4 = true;
 	resource1.resource5 = false;
 	resource1.resource6 = false;
+	resource1.resource7 = false;
+	resource1.resource8 = false;
 	textureResource4.loadFromFile("tower2.png");
 	resource1.rect.setTexture(&textureResource4);
 	resource1.rect.setPosition(640, 750);
@@ -485,6 +529,8 @@ int main() {
 	resource1.resource4 = false;
 	resource1.resource5 = true;
 	resource1.resource6 = false;
+	resource1.resource7 = false;
+	resource1.resource8 = false;
 	textureResource5.loadFromFile("tower3.png");
 	resource1.rect.setTexture(&textureResource5);
 	resource1.rect.setPosition(920, 180);
@@ -497,7 +543,10 @@ int main() {
 	resource1.resource4 = false;
 	resource1.resource5 = false;
 	resource1.resource6 = true;
-	textureResource6.loadFromFile("res3.png");
+	resource1.resource7 = false;
+	resource1.resource8 = false;
+	//textureResource6.loadFromFile("res3.png");
+	textureResource6.loadFromFile("res_torch.png");
 	resource1.rect.setTexture(&textureResource6);
 	resource1.rect.setPosition(630, 650);
 	resourceArray.push_back(resource1);
@@ -506,7 +555,37 @@ int main() {
 	resource1.resource6 = false;
 	//---------------------------------------------------------------------------------------------------------------
 
-
+	resource1.resource1 = false;
+	resource1.resource2 = false;
+	resource1.resource3 = false;
+	resource1.resource4 = false;
+	resource1.resource5 = false;
+	resource1.resource6 = false;
+	resource1.resource7 = false;
+	resource1.resource8 = true;
+	textureResource8.loadFromFile("res3.png");
+	resource1.rect.setTexture(&textureResource8);
+	resource1.rect.setPosition(300, 400);
+	resourceArray.push_back(resource1);
+	resource1.rect.setPosition(1350, 50);
+	resourceArray.push_back(resource1);
+	resource1.resource8 = false;
+	
+	resource1.resource1 = false;
+	resource1.resource2 = false;
+	resource1.resource3 = false;
+	resource1.resource4 = false;
+	resource1.resource5 = false;
+	resource1.resource6 = false;
+	resource1.resource7 = true;
+	resource1.resource8 = false;
+	textureResource7.loadFromFile("rasengan.png");
+	resource1.rect.setTexture(&textureResource7);
+	resource1.rect.setSize(sf::Vector2f(100, 100));
+	resource1.rect.setTextureRect(sf::IntRect(0, 0, 894, 894));
+	resource1.rect.setPosition(310, -500);
+	resourceArray.push_back(resource1);
+	resource1.resource7 = false;
 
 
 	player.tower = 1;
@@ -556,6 +635,8 @@ int main() {
 	
 	// West Left map enemies - 3 enemies 
 	
+
+
 	/*  reduce number enmey
 	enemy3.sprite.setTexture(textureEnemy3);
 	enemy3.text.setFont(font);  
@@ -601,7 +682,7 @@ int main() {
 	enemy2.text.setFont(font);  
 	enemy2.text.setCharacterSize(15);
 	enemy2.text.setFillColor(sf::Color::White);
-	enemy2.rect.setPosition(600, 700);
+	enemy2.rect.setPosition(700, 800);
 	enemy2.spritexStart = 32 * 7;
 	enemy2.spriteyStart = 32 * 0;
 	enemyArray2.push_back(enemy2); // enemy type 2
@@ -1195,8 +1276,35 @@ int main() {
 				}
 				if (resourceArray[counter].resource6 == true) //resource 6
 				{
+					std::cout << "resource: torch" << std::endl;
+					shade_big = 1;
+
+					resourceArray[counter].gathered = true;
+					
+				}
+				if (resourceArray[counter].resource7 == true) //resource 7
+					 {
+					resourceArray[counter].gathered = true;
+					return 0;
+					}
+				if (resourceArray[counter].resource8 == true) //resource 8
+					 {
 					player.ammo += 2;
+					totalAmmo.str("");
+					totalAmmo << "Ammo: " << player.ammo;
+					textAmmo.setString(totalAmmo.str());
+					textAmmo2.setString(totalAmmo.str());
+					textAmmo3.setString(totalAmmo.str());
+					textAmmo4.setString(totalAmmo.str());
+					textAmmo5.setString(totalAmmo.str());
+					textAmmo6.setString(totalAmmo.str());
+					textAmmo7.setString(totalAmmo.str());
 					player.health += 1.5;
+					if (player.health >= player.maxHealth)
+					{
+						player.health = player.maxHealth;
+					}
+
 					resourceArray[counter].gathered = true;
 				}
 			}
@@ -1224,7 +1332,12 @@ int main() {
 		int temp = player.playerposx;
 		int temp2 = player.playerposy;
 		graphics.playerShade.setPosition(temp - 950.0f, temp2 - 520.0f);
-
+		if (shade_big == 0) {
+			graphics.playerShade.setPosition(temp - 950.0f, temp2 - 520.0f);
+			
+		}
+		else
+		   graphics.playerShadeBig.setPosition(temp - 950.0f, temp2 - 520.0f);
 		
 
 		if (tower_attack == 1) {
@@ -1607,9 +1720,9 @@ int main() {
 				{
 					//Cuong 05/10
 					 //Text Display
-					textDisplay1.text.setString(to_string(enemyArray[counter].attackDamage));
-					textDisplay1.text.setPosition(player.body.getPosition().x + player.body.getSize().x / 2, player.body.getPosition().y - player.body.getSize().y / 2);
-					textDisplayArray.push_back(textDisplay1);
+					//textDisplay1.text.setString(to_string(enemyArray[counter].attackDamage));
+					//textDisplay1.text.setPosition(player.body.getPosition().x + player.body.getSize().x / 2, player.body.getPosition().y - player.body.getSize().y / 2);
+					//textDisplayArray.push_back(textDisplay1);
 
 					player.health -= enemy1.enemyAttackDamage1;
 					if (player.health <= 0) {
@@ -1730,6 +1843,7 @@ int main() {
 				textScore6.setString(totalScore.str());
 				textScore7.setString(totalScore.str());
 				cout << "Enemy1 was killed" << endl;
+				audio.enemyDeath.play();
 				enemyArray.erase(iter4);
 				break;
 			}
@@ -1753,6 +1867,7 @@ int main() {
 				textScore6.setString(totalScore.str());
 				textScore7.setString(totalScore.str());
 				cout << "Enemy2 was killed" << endl;
+				audio.enemyDeath.play();
 				enemyArray2.erase(iter4);
 				break;
 			}
@@ -1776,6 +1891,7 @@ int main() {
 				textScore6.setString(totalScore.str());
 				textScore7.setString(totalScore.str());
 				cout << "Enemy3 was killed" << endl;
+				audio.enemyDeath.play();
 				enemyArray3.erase(iter4);
 				break;
 			}
@@ -1911,6 +2027,13 @@ int main() {
 
 		//Drawing player shade region
 		//window.draw(graphics.playerShade);
+		if (shade_big == 0) {
+			window.draw(graphics.playerShade);
+			
+		}
+		else
+			 window.draw(graphics.playerShadeBig);
+
 
 		//Miguel draw Health Bar		4/2/17-4/7/17
 		window.draw(text);
